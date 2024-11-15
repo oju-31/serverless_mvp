@@ -3,7 +3,7 @@ terraform {
     encrypt        = true
     bucket         = "smarterise-webapp-aws-terraform-remote-state-centralized"
     dynamodb_table = "smarterise-webapp-aws-terraform-locks-centralized"
-    region         = "us-east-1"
+    region         = "eu-west-2"
     key            = "smarterise-webapp-backend-infra/{{ENV}}/terraform.tfstate"
   }
   required_version = ">=0.13.0"
