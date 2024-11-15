@@ -1,0 +1,14 @@
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: 'Terraform Lint, Security Check, and Deploy'
+    runs-on: ubuntu-latest
