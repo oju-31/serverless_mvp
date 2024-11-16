@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: 'Checkout GitHub repository'
-      uses: actions/checkout@4
+      uses: actions/checkout@3
 
     - name: 'Configure AWS credentials'
       uses: aws-actions/configure-aws-credentials@v4
