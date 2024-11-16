@@ -10,7 +10,7 @@ on:
 
 jobs:
   terraform:
-    name: 'Terraform Lint, Security Check, and Deploy'
+    name: 'Terraform and Python Lint'
     runs-on: ubuntu-latest
 
     env:
@@ -81,7 +81,7 @@ jobs:
 
     - name: 'Terraform Plan'
       if: github.event_name == 'push'
-      run: terraform plan -var-file="config/dev.tfvars"
+      run: terraform plan -var-file="config/dev.tfvars" -out=tfplan
 
     - name: 'Terraform Apply'
       if: github.event_name == 'push'
