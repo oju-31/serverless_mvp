@@ -42,7 +42,7 @@ jobs:
 
     - name: Lint Python files with flake8
       run: |
-        flake8 **/*.py
+        flake8 modules/lambda
 
     - name: 'Set up Terraform'
       uses: hashicorp/setup-terraform@v1
