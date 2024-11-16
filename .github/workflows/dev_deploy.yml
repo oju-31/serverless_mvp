@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: 'us-east-1'
-      TF_VERSION: '1.4.0'
-      TFLINT_VERSION: '0.46.1'  # Updated to a more recent version
+      AWS_REGION: 'eu-west-2'
+      TF_VERSION: '1.5.0'
+      TFLINT_VERSION: '0.54.0'  # Updated to a more recent version
       TFSEC_VERSION: '1.28.1'   # Updated to a more recent version
 
     steps:
@@ -73,8 +73,7 @@ jobs:
 
     - name: 'TFLint'
       run: |
-        tflint --init
-        tflint -var-file="config/main_deployment.tfvars"
+        tflint --init && tflint -var-file="config/dev.tfvars"
 
     - name: 'tfsec'
       run: tfsec .

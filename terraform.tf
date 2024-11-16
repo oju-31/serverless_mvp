@@ -6,10 +6,10 @@ terraform {
     region         = "eu-west-2"
     key            = "smarterise-webapp-backend-infra/{{ENV}}/terraform.tfstate"
   }
-  required_version = ">=0.13.0"
+  required_version = ">=1.0"
   required_providers {
     aws = {
-      version = ">= 2.7.0"
+      version = ">= 4.0"
       source = "hashicorp/aws"
     }
   }
