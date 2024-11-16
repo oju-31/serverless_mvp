@@ -81,7 +81,7 @@ jobs:
 
     - name: 'Terraform Plan'
       if: github.event_name == 'push'
-      run: terraform plan -auto-approve -var-file="config/dev.tfvars"
+      run: terraform plan -var-file="config/dev.tfvars"
 
     - name: 'Terraform Apply'
       if: github.event_name == 'push'
