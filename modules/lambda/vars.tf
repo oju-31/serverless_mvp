@@ -4,9 +4,8 @@ variable "CURRENT_ACCOUNT_ID" {}
 variable "AWS_REGION" {}
 variable "RESOURCE_PREFIX" {}
 
-######################################
-# LAMBDA OPEN VARIABLES
-######################################
+
+####### LAMBDA OPEN VARIABLES
 variable "LAMBDA_LOGIN_ROLE_ARN" {}
 
 # variable "POOL_ID" {}

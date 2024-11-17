@@ -4,10 +4,11 @@ locals {
   ACCOUNTID           = data.aws_caller_identity.current.account_id
   cognito_domain_name = "auth.${var.WEBAPP_DNS}"
   common_tags         = { 
-    environment = var.ENV 
-    project     = "smarterise-webapp" 
-    managedby   = "aojutomori@gmail.com"
-    application = "webapp-backend"
+    Environment = var.ENV 
+    Application = "webapp-backend"
+    Project     = "smarterise-serverless-backend" 
+    Owner       = "aojutomori@gmail.com"
+    CostCenter  = "WEBAPP-SERVERLESS-${var.ENV}-001"
   } 
 }
 

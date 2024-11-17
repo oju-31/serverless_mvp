@@ -1,6 +1,7 @@
 locals {
   PYTHON_VERSION = "python3.12"
   LAMBDA_VERSION = "v1"
+  TAGS = merge(var.COMMON_TAGS, tomap({"ResourceType" = "COMPUTE"}))
 }
 
 
@@ -15,6 +16,7 @@ resource "aws_lambda_function" "lambda_login" {
   source_code_hash = data.archive_file.lambda_login_archive.output_base64sha256
   runtime          = local.PYTHON_VERSION
   timeout          = 300
+  tags             = local.TAGS
 
   environment {
     variables = {
