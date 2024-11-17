@@ -14,3 +14,28 @@ locals {
 resource "aws_s3_bucket" "example" {
   bucket = "my-tf-example-bucket-999234"
 }
+
+################################################################################
+# LAMBDA MODULES
+################################################################################
+module "lambda" {
+  source             = "./modules/lambda"
+  ENV                = var.ENV
+  COMMON_TAGS        = local.common_tags
+  CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
+  RESOURCE_PREFIX    = local.RESOURCE_PREFIX
+  AWS_REGION         = data.aws_region.current.name
+
+  # POOL_ID                                    = module.app_cognito.COGNITO_USER_POOL_ID
+  # CLIENT_ID                                  = module.app_cognito.COGNITO_USER_CLIENT_ID
+  # CLIENT_SECRET                              = module.app_cognito.COGNITO_USER_CLIENT_SECRET
+}
+
+
+################################################################################
+# IAM ROLE MODULES
+################################################################################
+module "role" {
+  source          = "./modules/iam_role"
+  RESOURCE_PREFIX = local.RESOURCE_PREFIX
+}

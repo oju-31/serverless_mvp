@@ -1,8 +1,14 @@
+locals {
+  PYTHON_VERSION = "python3.12"
+  LAMBDA_VERSION = "v1"
+}
+
+
 # ---------------------------------------------
 # OPEN MODULE
 #----------------------------------------------
 resource "aws_lambda_function" "lambda_login" {
-  filename         = "${path.root}/backend/open/zip/signup.zip"
+  filename         = "${path.root}/backend/open/zip/login.zip"
   function_name    = "${var.RESOURCE_PREFIX}-login-${local.LAMBDA_VERSION}"
   role             = var.LAMBDA_LOGIN_ROLE_ARN
   handler          = "login.lambda_handler"

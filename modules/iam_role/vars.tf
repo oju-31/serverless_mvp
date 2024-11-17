@@ -1,0 +1,1 @@
+variable "RESOURCE_PREFIX" {}
