@@ -53,6 +53,10 @@ jobs:
       with:
         terraform_version: ${{ env.TF_VERSION }}
 
+    # Initialize Terraform
+    - name: Delete .terraform directory
+      run: rm -rf .terraform
+
     - name: 'Terraform Init'
       run: terraform init
 
