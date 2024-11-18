@@ -8,7 +8,7 @@ from validator import validate_event
 # CLIENT_ID = os.environ["CLIENT_ID"]
 # CLIENT_SECRET = os.environ["CLIENT_SECRET"]
 
-# cognito_client = boto3.client('cognito-idp')
+cognito_client = boto3.client('cognito-idp')
 table_name = os.getenv('ENV')
 # db = boto3.resource("dynamodb")
 # table = db.Table(table_name)
