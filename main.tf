@@ -28,7 +28,7 @@ module "lambdas" {
   AWS_REGION         = data.aws_region.current.name
 
   # ROLES ARN
-  LAMBDA_LOGIN_ROLE_ARN = module.role.LAMBDA_LOGIN_ROLE_ARN
+  LAMBDA_LOGIN_ROLE_ARN = module.roles.LAMBDA_LOGIN_ROLE_ARN
 
   # POOL_ID                                    = module.app_cognito.COGNITO_USER_POOL_ID
   # CLIENT_ID                                  = module.app_cognito.COGNITO_USER_CLIENT_ID
