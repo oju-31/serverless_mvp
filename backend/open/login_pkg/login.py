@@ -63,7 +63,7 @@ def lambda_handler(event, context):
     except (BotoCoreError, ClientError) as e:
         logger.error(e)
         response_string = str(e).split(":", 1)[-1].strip()
-        resp["message"] =  f"An AWS error occurred: {response_string}"
+        resp["message"] = f"An AWS error occurred: {response_string}"
     except Exception as e:
         status_code = 500
         logger.error(e)
