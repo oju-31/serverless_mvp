@@ -39,7 +39,7 @@ module "lambdas" {
 ################################################################################
 # IAM ROLE MODULES
 ################################################################################
-module "role" {
-  source          = "./modules/iam_role"
+module "roles" {
+  source          = "./infra/iam_roles"
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
 }
