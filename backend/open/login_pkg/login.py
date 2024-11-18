@@ -1,6 +1,7 @@
 import boto3
 import os
 import logging
+from botocore.exceptions import BotoCoreError, ClientError
 from validator import validate_event
 
 # POOL_ID = os.environ["POOL_ID"]
@@ -58,23 +59,15 @@ def lambda_handler(event, context):
 
     except ValueError as e:
         logger.error(e)
+        resp["message"] = f"A validation error occurred: {str(e)}"
+    except (BotoCoreError, ClientError) as e:
+        logger.error(e)
+        response_string = str(e).split(":", 1)[-1].strip()
+        resp["message"] =  f"An AWS error occurred: {response_string}"
+    except Exception as e:
+        status_code = 500
+        logger.error(e)
         resp["message"] = str(e)
-#     except client.exceptions.NotAuthorizedException as e:
-#         logger.error(e)
-#         response_string = str(e)
-#         resp["message"] = "Login Failed: Invalid Email or Password"
-#     except client.exceptions.UserNotConfirmedException as e:
-#         logger.error(e)
-#         response_string = str(e)
-#         resp["message"] = response_string.split(":", 1)[-1].strip()
-#     except client.exceptions.UserNotFoundException as e:
-#         logger.error(e)
-#         response_string = str(e)
-#         resp["message"] = response_string.split(":", 1)[-1].strip()
-#     except Exception as e:
-#         status_code = 500
-#         logger.error(e)
-#         resp["message"] = str(e)
 
     return make_response(status_code, resp)
 
