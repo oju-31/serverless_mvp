@@ -20,7 +20,7 @@ resource "aws_s3_bucket" "example" {
 # LAMBDA MODULES
 ################################################################################
 module "lambda" {
-  source             = "./modules/lambda"
+  source             = "./infra/lambdas"
   ENV                = var.ENV
   COMMON_TAGS        = local.common_tags
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
