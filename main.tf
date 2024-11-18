@@ -19,7 +19,7 @@ resource "aws_s3_bucket" "example" {
 ######################################################################
 # LAMBDA MODULES
 ######################################################################
-module "lambda" {
+module "lambdas" {
   source             = "./infra/lambdas"
   ENV                = var.ENV
   COMMON_TAGS        = local.common_tags
