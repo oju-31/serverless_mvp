@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
     encrypt        = true
-    bucket         = "smarterise-webapp-aws-terraform-remote-state-centralized"
-    dynamodb_table = "smarterise-webapp-aws-terraform-locks-centralized"
-    region         = "eu-west-2"
-    key            = "smarterise-webapp-backend-infra/{{ENV}}/terraform.tfstate"
+    bucket         = "ahlorq-styles-webapp-aws-terraform-remote-state-centralized"
+    dynamodb_table = "ahlorq-styles-webapp-aws-terraform-locks-centralized"
+    region         = "us-east-1"
+    key            = "ahlorq-styles-monorepo-webapp-infra/{{ENV}}/terraform.tfstate"
   }
   required_version = ">=1.0"
   required_providers {
