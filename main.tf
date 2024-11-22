@@ -51,7 +51,7 @@ module "open" {
   COMMON_TAGS        = local.common_tags
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   LAMBDA_NAMES       = [
-    module.lambda.LAMBDA_LOGIN_NAME
+    module.lambdas.LAMBDA_LOGIN_NAME
     ]
   LAMBDA_LOGIN_ARN   = module.lambdas.LAMBDA_LOGIN_ARN
   
