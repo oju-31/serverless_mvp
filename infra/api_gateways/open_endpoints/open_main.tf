@@ -39,6 +39,27 @@ resource "aws_api_gateway_stage" "open_apis_stage" {
   stage_name    = var.ENV
 }
 
+resource "aws_api_gateway_rest_api_policy" "open_api_policy" {
+  rest_api_id = aws_api_gateway_rest_api.open_rest_apis.id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "execute-api:Invoke",
+        "Resource": [
+          "${aws_api_gateway_rest_api.open_rest_apis.execution_arn}",
+          "${aws_api_gateway_rest_api.open_rest_apis.execution_arn}/*"
+        ]
+      }
+    ]
+  }
+  EOF
+}
+
 
 ################################################################################
 # Permissions - Lambda(s)
