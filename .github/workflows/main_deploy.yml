@@ -1,4 +1,4 @@
-name: Dev Infra CI/CD
+name: Main Infra CI/CD
 
 on:
   push:

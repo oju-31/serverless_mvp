@@ -1,28 +1,38 @@
-# import boto3
-# import os
-# # from login_validation import validator
+import boto3
+import os
+import logging
+from botocore.exceptions import BotoCoreError, ClientError
+from validator import validate_event
 
 # POOL_ID = os.environ["POOL_ID"]
 # CLIENT_ID = os.environ["CLIENT_ID"]
 # CLIENT_SECRET = os.environ["CLIENT_SECRET"]
 
-# client = boto3.client('cognito-idp')
-# table_name = os.getenv('ENV')
+cognito_client = boto3.client('cognito-idp')
+table_name = os.getenv('ENV')
+# db = boto3.resource("dynamodb")
 # table = db.Table(table_name)
 
+if logging.getLogger().hasHandlers():
+    logging.getLogger().setLevel(logging.INFO)
+else:
+    logging.basicConfig(level=logging.INFO)
 
-# def lambda_handler(event, context):
-#     status_code = 400
-#     logger.info(event)
-#     resp = {
-#         "error": True,
-#         "success": False,
-#         "message": "server error",
-#         "data": None
-#     }
-#     try:
-#         username, password = validator(event)
-#         response = client.initiate_auth(
+logger = logging.getLogger()
+
+
+def lambda_handler(event, context):
+    status_code = 400
+    logger.info(event)
+    resp = {
+        "error": True,
+        "success": False,
+        "message": "server error",
+        "data": None
+    }
+    try:
+        username, password = validate_event(event)
+#         response = cognito_client.initiate_auth(
 #             ClientId=CLIENT_ID,
 #             AuthFlow='USER_PASSWORD_AUTH',
 #             AuthParameters={
@@ -34,11 +44,11 @@
 #               'password': password,
 #             }
 #         )
-        
+
 #         resp["data"] = {
 #                "id_token": response["AuthenticationResult"]["IdToken"],
-#                "refresh_token": response["AuthenticationResult"]["RefreshToken"],
-#                "access_token": response["AuthenticationResult"]["AccessToken"],
+#                "refresh_token": response["AuthenticationResult"]
+#                "access_token": response["AuthenticationResult"]
 #                "expires_in": response["AuthenticationResult"]["ExpiresIn"],
 #                "token_type": response["AuthenticationResult"]["TokenType"]
 #             }
@@ -46,30 +56,26 @@
 #         resp["error"] = False
 #         resp["success"] = True
 #         resp["message"] = "login successful"
-        
-#     except ValidationError as e:
-#         logger.error(e)
-#         resp["message"] = str(e)
-#     except client.exceptions.NotAuthorizedException as e:
-#         logger.error(e)
-#         response_string = str(e)
-#         resp["message"] = "Login Failed: Invalid Email or Password"
-#     except client.exceptions.UserNotConfirmedException as e:
-#         logger.error(e)
-#         response_string = str(e)
-#         resp["message"] = response_string.split(":", 1)[-1].strip()
-#     except client.exceptions.UserNotFoundException as e:
-#         logger.error(e)
-#         response_string = str(e)
-#         resp["message"] = response_string.split(":", 1)[-1].strip()
-#     except Exception as e:
-#         status_code = 500
-#         logger.error(e)
-#         resp["message"] = str(e)
-    
-#     return make_response(status_code, resp)
+
+    except ValueError as e:
+        logger.error(e)
+        resp["message"] = f"A validation error occurred: {str(e)}"
+    except (BotoCoreError, ClientError) as e:
+        logger.error(e)
+        response_string = str(e).split(":", 1)[-1].strip()
+        resp["message"] = f"An AWS error occurred: {response_string}"
+    except Exception as e:
+        status_code = 500
+        logger.error(e)
+        resp["message"] = str(e)
+
+    return make_response(status_code, resp)
 
 
-# def save_cookies(cookies, user_id):
-#     cookies.update({"pk": "cookie", "sk": f"user_{user_id}"})
-#     table.put_item(Item=cookies)
+def make_response(status, message, log=True):
+    if log:
+        logger.info(f"Response: status-{status}, body-{message}")
+    return {
+        "statusCode": status,
+        "body": message
+    }

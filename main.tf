@@ -12,15 +12,12 @@ locals {
   } 
 }
 
-resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-example-bucket-999234"
-}
 
-################################################################################
+###########################################
 # LAMBDA MODULES
-################################################################################
-module "lambda" {
-  source             = "./modules/lambda"
+###########################################
+module "lambdas" {
+  source             = "./infra/lambdas"
   ENV                = var.ENV
   COMMON_TAGS        = local.common_tags
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
@@ -28,7 +25,7 @@ module "lambda" {
   AWS_REGION         = data.aws_region.current.name
 
   # ROLES ARN
-  LAMBDA_LOGIN_ROLE_ARN = module.role.LAMBDA_LOGIN_ROLE_ARN
+  LAMBDA_LOGIN_ROLE_ARN = module.roles.LAMBDA_LOGIN_ROLE_ARN
 
   # POOL_ID                                    = module.app_cognito.COGNITO_USER_POOL_ID
   # CLIENT_ID                                  = module.app_cognito.COGNITO_USER_CLIENT_ID
@@ -36,10 +33,31 @@ module "lambda" {
 }
 
 
-################################################################################
+############################################
 # IAM ROLE MODULES
-################################################################################
-module "role" {
-  source          = "./modules/iam_role"
+############################################
+module "roles" {
+  source          = "./infra/iam_roles"
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
+}
+
+
+###########################################
+# LAMBDA MODULES
+###########################################
+module "open" {
+  source             = "./infra/api_gateways/open_endpoints"
+  ENV                = var.ENV
+  COMMON_TAGS        = local.common_tags
+  CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
+  LAMBDA_NAMES       = [
+    module.lambdas.LAMBDA_LOGIN_NAME
+    ]
+  LAMBDA_LOGIN_ARN   = module.lambdas.LAMBDA_LOGIN_ARN
+  
+  depends_on         = [
+      module.roles, 
+      module.lambdas
+    ]
+
 }
