@@ -36,7 +36,7 @@ resource "aws_api_gateway_deployment" "open_api_deployment" {
 resource "aws_api_gateway_stage" "open_apis_stage" {
   deployment_id = aws_api_gateway_deployment.open_api_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.open_rest_apis.id
-  stage_name    = var.ENV
+  stage_name    = var.RESOURCE_PREFIX
 }
 
 resource "aws_api_gateway_rest_api_policy" "open_api_policy" {
