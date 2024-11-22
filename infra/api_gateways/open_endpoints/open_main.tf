@@ -2,9 +2,9 @@ data "template_file" api_swagger{
   template = "${file("${path.module}/swaggers/open_swagger.yml")}"
      vars = {
         LAMBDA_LOGIN_ARN = "${var.LAMBDA_LOGIN_ARN}"
-        ACCOUNTID = "${var.CURRENT_ACCOUNT_ID }"
-        ENV  = "${var.ENV}"
-        basePath  = "${var.RESOURCE_PREFIX}"
+        ACCOUNTID        = "${var.CURRENT_ACCOUNT_ID }"
+        ENV              = "${var.ENV}"
+        basePath         = "${var.RESOURCE_PREFIX}"
     }
 }
 
@@ -20,18 +20,17 @@ resource "aws_api_gateway_deployment" "open_api_deployment" {
   triggers = {
     redeployment = sha1(jsonencode(aws_api_gateway_rest_api.open_rest_apis.body))
   }
-  lifecycle {
-    create_before_destroy = true
-  }
-  
   depends_on = [
-    aws_lambda_permission.lambda_permissions
+    aws_lambda_permission.open_apis_stage
   ]
   
   variables = {
     "deployed_at" = "${timestamp()}"
   }
-}
+  lifecycle {
+    create_before_destroy = true
+  }
+} 
 
 
 resource "aws_api_gateway_stage" "open_apis_stage" {
