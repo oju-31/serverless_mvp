@@ -1,6 +1,6 @@
 locals {
   DOMAIN_NAME         = "api.${var.WEBAPP_DNS}"
-  RESOURCE_PREFIX     = "${var.ENV}-smarterise"
+  RESOURCE_PREFIX     = "${var.ENV}-ahlorq"
   ACCOUNTID           = data.aws_caller_identity.current.account_id
   cognito_domain_name = "auth.${var.WEBAPP_DNS}"
   common_tags         = { 

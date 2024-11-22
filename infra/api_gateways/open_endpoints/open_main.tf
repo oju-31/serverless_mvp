@@ -9,7 +9,7 @@ data "template_file" api_swagger{
 }
 
 resource "aws_api_gateway_rest_api" "open_rest_apis" {
-  description  = "ahlorq style generator Rest APIs for pgraters open endpoint in ${var.ENV} environment."
+  description  = "ahlorq style generator Rest APIs for open endpoint in ${var.ENV} environment."
   name = "${var.ENV}-style-generator-${var.RESOURCE_PREFIX}-rest-api"
   body = data.template_file.api_swagger.rendered
   disable_execute_api_endpoint = true

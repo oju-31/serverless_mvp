@@ -9,36 +9,6 @@ basePath: "/${basePath}" # this needs to be called out because we dont have a cu
 schemes:
   - "https"
 paths:
-  /v1:
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        "200":
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
-      x-amazon-apigateway-integration:
-        responses:
-          default:
-            statusCode: "200"
-            responseParameters:
-              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-        requestTemplates:
-          application/json: '{"statusCode": 200}'
-        passthroughBehavior: "when_no_match"
-        type: "mock"
   /v1/login:
     post:
       consumes:
