@@ -21,7 +21,7 @@ resource "aws_api_gateway_deployment" "open_api_deployment" {
     redeployment = sha1(jsonencode(aws_api_gateway_rest_api.open_rest_apis.body))
   }
   depends_on = [
-    aws_lambda_permission.open_apis_stage
+    aws_lambda_permission.open_lambda_permissions
   ]
   
   variables = {
