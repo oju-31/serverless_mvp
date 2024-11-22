@@ -46,18 +46,17 @@ module "roles" {
 # LAMBDA MODULES
 ###########################################
 module "open" {
-  source          = "./infra/api_gateways/open_endpoints"
-  ENV             = var.ENV
-  COMMON_TAGS     = local.common_tags
-  CURRENT_ACCOUNT_ID       = local.ACCOUNTID
-  API_DOMAIN_NAME = module.custom_domain.API_DOMAIN_NAME
-  LAMBDA_NAMES = [
+  source             = "./infra/api_gateways/open_endpoints"
+  ENV                = var.ENV
+  COMMON_TAGS        = local.common_tags
+  CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
+  LAMBDA_NAMES       = [
     module.lambda.LAMBDA_LOGIN_NAME
     ]
-  LAMBDA_LOGIN_ARN  = module.lambdas.LAMBDA_LOGIN_ARN
+  LAMBDA_LOGIN_ARN   = module.lambdas.LAMBDA_LOGIN_ARN
   
-  depends_on = [
-      module.roles,
+  depends_on         = [
+      module.roles, 
       module.lambdas
     ]
 

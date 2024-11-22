@@ -4,7 +4,7 @@ info:
   info:
   description: "smarterise-open Rest API Gateway for pgraters accountant in ${ENV} environment."
   version: "2022-08-17T21:20:52Z"
-  title: "${ENV}-smarterise-OPEN-api_rest_api"
+  title: "${ENV}-ahlorq-style-generators-${basePath}-rest-api"
 basePath: "/${basePath}" # this needs to be called out because we dont have a custom domain for the api geteway else we would have use the mapping resource for tit.
 schemes:
   - "https"
