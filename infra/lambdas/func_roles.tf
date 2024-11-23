@@ -2,7 +2,7 @@
 # LOGIN ROLE 
 #----------------------------------------
 resource "aws_iam_role" "login" {
-   name = "${var.RESOURCE_PREFIX}-lambda-login-role"
+   name = "${var.RESOURCE_PREFIX}-lambda-logi-role"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
