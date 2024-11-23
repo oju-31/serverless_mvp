@@ -34,7 +34,7 @@ resource "aws_lambda_function_url" "login" {
 # ---------------------------------------
 # GENERATE PROMPTS 
 #----------------------------------------
-resource "aws_lambda_function" "login" {
+resource "aws_lambda_function" "generate_prompts" {
   filename         = "${path.root}/backend/generators/zip/generate_prompts.zip"
   function_name    = "${var.RESOURCE_PREFIX}-generate-prompts-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.generate_prompts.arn}"
@@ -51,7 +51,7 @@ resource "aws_lambda_function" "login" {
   }
 }
 
-resource "aws_lambda_function_url" "login" {
+resource "aws_lambda_function_url" "generate_prompts" {
   function_name      = aws_lambda_function.generate_prompts.function_name
   authorization_type = "NONE"
 }
