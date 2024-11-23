@@ -2,7 +2,7 @@ import boto3
 import os
 import logging
 from botocore.exceptions import BotoCoreError, ClientError
-from validator import validate_event
+from backend.open.login_pkg.validate_login import validate_event
 
 # POOL_ID = os.environ["POOL_ID"]
 # CLIENT_ID = os.environ["CLIENT_ID"]
