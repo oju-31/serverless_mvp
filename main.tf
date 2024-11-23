@@ -1,12 +1,12 @@
 locals {
   DOMAIN_NAME         = "api.${var.WEBAPP_DNS}"
-  RESOURCE_PREFIX     = "${var.ENV}-ahlorq"
+  RESOURCE_PREFIX     = "${var.ENV}-ahlorq-style-gen"
   ACCOUNTID           = data.aws_caller_identity.current.account_id
   cognito_domain_name = "auth.${var.WEBAPP_DNS}"
   common_tags         = { 
     Environment = var.ENV 
-    Application = "webapp-backend"
-    Project     = "smarterise-serverless-backend" 
+    Application = "webapp-serverless"
+    Project     = "ahlorq ai style generator" 
     Owner       = "aojutomori@gmail.com"
     CostCenter  = "WEBAPP-SERVERLESS-${var.ENV}-001"
   } 
@@ -24,9 +24,6 @@ module "lambdas" {
   RESOURCE_PREFIX    = local.RESOURCE_PREFIX
   AWS_REGION         = data.aws_region.current.name
 
-  # ROLES ARN
-  LAMBDA_LOGIN_ROLE_ARN = module.roles.LAMBDA_LOGIN_ROLE_ARN
-
   # POOL_ID                                    = module.app_cognito.COGNITO_USER_POOL_ID
   # CLIENT_ID                                  = module.app_cognito.COGNITO_USER_CLIENT_ID
   # CLIENT_SECRET                              = module.app_cognito.COGNITO_USER_CLIENT_SECRET
@@ -34,9 +31,8 @@ module "lambdas" {
 
 
 ############################################
-# IAM ROLE MODULES
+# DYNAMODB
 ############################################
-module "roles" {
-  source          = "./infra/iam_roles"
-  RESOURCE_PREFIX = local.RESOURCE_PREFIX
-}
+############################################
+# STATIC WEB HOSTING
+############################################
