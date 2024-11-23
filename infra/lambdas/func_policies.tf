@@ -1,3 +1,6 @@
+################################################################################
+ # LAMBDA OPEN POLICIES
+################################################################################
 resource "aws_iam_role_policy" "lambda_login" {
   name = "${var.RESOURCE_PREFIX}-lambda-login-policy"
   role = aws_iam_role.lambda_login.id
