@@ -24,3 +24,8 @@ resource "aws_lambda_function" "lambda_login" {
     }
   }
 }
+
+resource "aws_lambda_function_url" "lambda_login" {
+  function_name      = aws_lambda_function.lambda_login.function_name
+  authorization_type = "NONE"
+}
