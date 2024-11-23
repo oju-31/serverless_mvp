@@ -40,24 +40,3 @@ module "roles" {
   source          = "./infra/iam_roles"
   RESOURCE_PREFIX = local.RESOURCE_PREFIX
 }
-
-
-###########################################
-# LAMBDA MODULES
-###########################################
-module "open" {
-  source             = "./infra/api_gateways/open_endpoints"
-  ENV                = var.ENV
-  COMMON_TAGS        = local.common_tags
-  CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
-  LAMBDA_NAMES       = [
-    module.lambdas.LAMBDA_LOGIN_NAME
-    ]
-  LAMBDA_LOGIN_ARN   = module.lambdas.LAMBDA_LOGIN_ARN
-  
-  depends_on         = [
-      module.roles, 
-      module.lambdas
-    ]
-
-}

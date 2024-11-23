@@ -4,6 +4,9 @@ output "LAMBDA_LOGIN_NAME" {
 output "LAMBDA_LOGIN_ARN" {
   value = aws_lambda_function.lambda_login.arn
 }
+output "LAMBDA_LOGIN_URL" {
+  value = aws_lambda_function_url.lambda_login.function_url
+}
 # output "LAMBDA_LOGIN_INVOKE_ARN" {
 #   value = aws_lambda_function.lambda_login.invoke_arn
 # }

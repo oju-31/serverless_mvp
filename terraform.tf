@@ -4,7 +4,7 @@ terraform {
     bucket         = "ahlorq-styles-webapp-aws-terraform-remote-state-centralized"
     dynamodb_table = "ahlorq-styles-webapp-aws-terraform-locks-centralized"
     region         = "us-east-1"
-    key            = "ahlorq-styles-monorepo-webapp-infra/{{ENV}}/terraform.tfstate"
+    key            = "ahlorq-styles-monorepo-webapp-infra/${var.ENV}/terraform.tfstate"
   }
   required_version = ">=1.0"
   required_providers {
@@ -20,4 +20,5 @@ provider "aws" {
 }
 
 data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
+data "aws_region" "current" {}\
+
