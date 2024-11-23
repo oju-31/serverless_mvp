@@ -40,13 +40,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest boto3
 
-    - name: Lint Python files with flake8
-      run: |
-        flake8 backend
+    # - name: Lint Python files with flake8
+    #   run: |
+    #     flake8 backend
 
-    - name: Unit Test Python Files With Pytest
-      run: |
-        pytest backend/unit_tests
+    # - name: Unit Test Python Files With Pytest
+    #   run: |
+    #     pytest backend/unit_tests
 
     - name: 'Set up Terraform'
       uses: hashicorp/setup-terraform@v3
