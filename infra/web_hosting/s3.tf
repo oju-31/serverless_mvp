@@ -20,7 +20,7 @@ resource "aws_s3_object" "index_html" {
   key          = "index.html"
   source       = "${path.root}/frontend/index.html"
   content_type = "text/html"
-  etag         = filemd5("${path.module}/frontend/index.html")
+  etag         = filemd5("${path.root}/frontend/index.html")
 }
 
 resource "aws_s3_bucket_public_access_block" "allow_public_access" {
