@@ -62,6 +62,9 @@ jobs:
     - name: 'Terraform Validate'
       run: terraform validate
 
+     - name: 'Terraform force unlock'
+      run: terraform terraform force-unlock -force 9ca9dc24-ace8-f08d-6371-6a5ba1449ddc
+
     - name: 'Terraform Plan'
       if: github.event_name == 'push'
       run: terraform plan -var-file="config/dev.tfvars" -out=tfplan
