@@ -3,7 +3,7 @@ locals {
   RESOURCE_PREFIX     = "${var.ENV}-ahlorq-style-gen"
   ACCOUNTID           = data.aws_caller_identity.current.account_id
   cognito_domain_name = "auth.${var.WEBAPP_DNS}"
-  common_tags         = { 
+  COMMON_TAGS          = { 
     Environment = var.ENV 
     Application = "webapp-serverless"
     Project     = "ahlorq ai style generator" 
@@ -19,7 +19,7 @@ locals {
 module "lambdas" {
   source             = "./infra/lambdas"
   ENV                = var.ENV
-  COMMON_TAGS        = local.common_tags
+  COMMON_TAGS        = local.COMMON_TAGS
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   RESOURCE_PREFIX    = local.RESOURCE_PREFIX
   AWS_REGION         = data.aws_region.current.name
@@ -36,3 +36,11 @@ module "lambdas" {
 ############################################
 # STATIC WEB HOSTING
 ############################################
+module "static" {
+  source             = "./infra/web_hosting"
+  ENV                = var.ENV
+  COMMON_TAGS        = local.COMMON_TAGS
+  CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
+  RESOURCE_PREFIX    = local.RESOURCE_PREFIX
+  AWS_REGION         = data.aws_region.current.name
+}

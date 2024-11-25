@@ -21,7 +21,6 @@ resource "aws_iam_role_policy" "login" {
   })
 }
 
-
 # -------------------------------------------------
 # GENERATE PROMPTS POLICY
 #--------------------------------------------------
@@ -44,3 +43,4 @@ resource "aws_iam_role_policy" "generate_prompts" {
     ]
   })
 }
+

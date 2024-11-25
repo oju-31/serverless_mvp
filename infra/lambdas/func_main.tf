@@ -4,9 +4,8 @@ locals {
   TAGS = merge(var.COMMON_TAGS, tomap({"ResourceType" = "COMPUTE"}))
 }
 
-
 # ---------------------------------------
-# LOGIN 
+# LOGIN LAMBDA
 #----------------------------------------
 resource "aws_lambda_function" "login" {
   filename         = "${path.root}/backend/open/zip/login.zip"
@@ -17,7 +16,6 @@ resource "aws_lambda_function" "login" {
   runtime          = local.PYTHON_VERSION
   timeout          = 300
   tags             = local.TAGS
-
   environment {
     variables = {
       ENV           = "${var.ENV}"
@@ -30,9 +28,8 @@ resource "aws_lambda_function_url" "login" {
   authorization_type = "NONE"
 }
 
-
 # ---------------------------------------
-# GENERATE PROMPTS 
+# GENERATE PROMPTS LAMBDA
 #----------------------------------------
 resource "aws_lambda_function" "generate_prompts" {
   filename         = "${path.root}/backend/generators/zip/generate_prompts.zip"
@@ -43,7 +40,6 @@ resource "aws_lambda_function" "generate_prompts" {
   runtime          = local.PYTHON_VERSION
   timeout          = 300
   tags             = local.TAGS
-
   environment {
     variables = {
       ENV           = "${var.ENV}"
@@ -55,3 +51,7 @@ resource "aws_lambda_function_url" "generate_prompts" {
   function_name      = aws_lambda_function.generate_prompts.function_name
   authorization_type = "NONE"
 }
+
+# ---------------------------------------
+# POST_SIGNUP LAMBDA
+#----------------------------------------

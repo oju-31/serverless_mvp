@@ -1,68 +1,55 @@
-resource "aws_s3_bucket" "webapp" { 
-  bucket = "${lower(var.ENV)}.${var.RESOURCE_IDENTIFIER}-app-webapp-frontend" 
-  tags = "${merge( 
-    local.common_tags, 
-    tomap({
-      "Purpose" = "Store static website files for pgraters webapp access through Cloudfront", 
-      "Name" = "${lower(var.ENV)}-${var.RESOURCE_IDENTIFIER}-webapp-cloudfront" 
-    })
-  )}" 
+locals {
+  PYTHON_VERSION = "python3.12"
+  LAMBDA_VERSION = "v1"
+  TAGS = merge(var.COMMON_TAGS, tomap({"ResourceType" = "STORAGE"}))
 }
 
-resource "aws_s3_bucket_logging" "webapp_log" {
-  bucket        = aws_s3_bucket.webapp.id
-  target_bucket = "${data.aws_caller_identity.current.account_id}-logs" 
-  target_prefix = "s3-logs/${var.RESOURCE_IDENTIFIER}-${lower(var.ENV)}/"
+resource "aws_s3_bucket" "website" {
+  bucket = "${lower(var.ENV)}.${var.RESOURCE_PREFIX}-frontend"
 }
 
-# resource "aws_s3_bucket_acl" "webapp_acl" {
-#   bucket = aws_s3_bucket.webapp.id
-#   acl    = "private"
-# }
-
-resource "aws_s3_bucket_policy" "webapp" {
-  bucket     = "${aws_s3_bucket.webapp.id}"
-
-  policy = <<POLICY
-{
-  "Version": "2012-10-17", 
-  "Id": "BUCKETPOLICY", 
-  "Statement": [
-    { 
-      "Sid": "", 
-      "Effect": "Allow", 
-      "Principal": { 
-          "AWS": "${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}" 
-      }, 
-      "Action": "s3:GetObject", 
-      "Resource": "${aws_s3_bucket.webapp.arn}/*" 
-    }, 
-    { 
-      "Sid": "", 
-      "Effect": "Allow", 
-      "Principal": { 
-          "AWS": "${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}" 
-      }, 
-      "Action": "s3:ListBucket", 
-      "Resource": "${aws_s3_bucket.webapp.arn}" 
-    }, 
-    { 
-      "Sid": "DenyInsecureAccess", 
-      "Effect": "Deny", 
-      "Principal": "*", 
-      "Action": "*", 
-      "Resource": [ 
-        "${aws_s3_bucket.webapp.arn}", 
-        "${aws_s3_bucket.webapp.arn}/*" 
-      ], 
-      "Condition": { 
-        "Bool": { 
-          "aws:SecureTransport": "false" 
-        } 
-      } 
-    }
-  ]
-}
-POLICY
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.website.id
+  index_document {
+    suffix = "index.html"
+  }
 }
 
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.website_bucket.id
+  index_document {
+    suffix = "index.html"
+  }
+}
+
+resource "aws_s3_object" "index_html" {
+  bucket       = aws_s3_bucket.website_bucket.id
+  key          = "index.html"
+  source       = "${path.root}/frontend/index.html"
+  content_type = "text/html"
+  etag         = filemd5("${path.module}/frontend/index.html")
+}
+
+resource "aws_s3_bucket_public_access_block" "allow_public_access" {
+  bucket = aws_s3_bucket.website.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_policy" "allow_public_access" {
+  bucket = aws_s3_bucket.website_bucket.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.website.arn}/*"
+      }
+    ]
+  })
+}

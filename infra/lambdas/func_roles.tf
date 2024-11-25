@@ -37,3 +37,4 @@ resource "aws_iam_role" "generate_prompts" {
      ]
    })
  }
+ 
