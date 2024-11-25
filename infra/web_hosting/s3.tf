@@ -6,6 +6,7 @@ locals {
 
 resource "aws_s3_bucket" "website" {
   bucket = "${lower(var.ENV)}.${var.RESOURCE_PREFIX}-frontend"
+  tags   = local.TAGS
 }
 
 resource "aws_s3_bucket_website_configuration" "website" {
