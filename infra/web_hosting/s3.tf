@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "website" {
 resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.website.id
   index_document {
-    suffix = "indexo.html"
+    suffix = "index.html"
   }
   error_document {
     key = "pages/error.html"
