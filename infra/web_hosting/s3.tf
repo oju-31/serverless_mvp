@@ -7,7 +7,7 @@ locals {
 
 resource "aws_s3_bucket" "website" {
   bucket = "${var.RESOURCE_PREFIX}"
-  # tags   = local.TAGS
+  tags   = local.TAGS
 }
 
 resource "aws_s3_bucket_website_configuration" "website" {
