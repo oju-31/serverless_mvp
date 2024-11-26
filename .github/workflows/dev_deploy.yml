@@ -72,3 +72,16 @@ jobs:
     - name: 'Terraform Apply'
       if: github.event_name == 'push'
       run: terraform apply -auto-approve tfplan
+
+    - name: Get S3 Bucket Name
+      id: get_bucket
+      run: |
+        BUCKET_NAME=$(jq -r '.S3_FRONTEND_BUCKET_NAME.value' frontend/config.json)
+        echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+
+    - name: Deploy Frontend to S3
+      run: |
+        aws s3 sync frontend/ s3://${{ steps.get_bucket.outputs.bucket_name }}/ \
+          --delete \
+          --exclude ".git*" \
+          --exclude "*.md"
