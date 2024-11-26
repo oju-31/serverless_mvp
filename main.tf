@@ -37,10 +37,10 @@ module "lambdas" {
 # STATIC WEB HOSTING
 ############################################
 module "static" {
-  source             = "./infra/web_hosting"
-  ENV                = var.ENV
-  COMMON_TAGS        = local.COMMON_TAGS
+  source                  = "./infra/web_hosting"
+  ENV                     = var.ENV
+  COMMON_TAGS             = local.COMMON_TAGS
   # CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
-  RESOURCE_PREFIX    = local.RESOURCE_PREFIX
-  GITHUB_ACTIONS_USER_ARN = var.ENV
+  RESOURCE_PREFIX         = local.RESOURCE_PREFIX
+  GITHUB_ACTIONS_USER_ARN = var.GITHUB_ACTIONS_USER_ARN
 }
