@@ -83,7 +83,6 @@ resource "aws_s3_bucket_policy" "allow_public_access_and_gha" {
         Action   = [
           "s3:ListBucket",
           "s3:PutObject",
-          "s3:CopyObject",
           "s3:DeleteObject"
         ]
         Resource = [
