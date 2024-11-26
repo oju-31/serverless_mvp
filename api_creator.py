@@ -243,4 +243,4 @@ def create_api(module, api):
     append_infra_code(module, api)
 
 
-create_api("ttt uua", "api jj")
+# create_api("ttt uua", "api jj")
