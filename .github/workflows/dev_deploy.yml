@@ -62,8 +62,8 @@ jobs:
     - name: 'Terraform Validate'
       run: terraform validate
 
-    # - name: 'Terraform force unlock'
-    #   run: terraform force-unlock -force 9ca9dc24-ace8-f08d-6371-6a5ba1449ddc
+    - name: 'Terraform force unlock'
+      run: terraform force-unlock -force cfd44e26-ba22-8d46-3a41-0e157ec8a353
 
     - name: 'Terraform Plan'
       if: github.event_name == 'push'
