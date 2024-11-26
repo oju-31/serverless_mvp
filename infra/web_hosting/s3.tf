@@ -7,7 +7,7 @@ locals {
 
 resource "aws_s3_bucket" "website" {
   bucket = "${var.RESOURCE_PREFIX}"
-  # tags   = local.TAGS
+  tags   = local.TAGS
 }
 
 resource "aws_s3_bucket_website_configuration" "website" {
@@ -48,7 +48,23 @@ resource "aws_s3_bucket_public_access_block" "allow_public_access" {
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_policy" "allow_public_access" {
+# resource "aws_s3_bucket_policy" "allow_public_access" {
+#   bucket = aws_s3_bucket.website.id
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Sid       = "PublicReadGetObject"
+#         Effect    = "Allow"
+#         Principal = "*"
+#         Action    = "s3:GetObject"
+#         Resource  = "${aws_s3_bucket.website.arn}/*"
+#       }
+#     ]
+#   })
+# }
+
+resource "aws_s3_bucket_policy" "allow_public_access_and_gha" {
   bucket = aws_s3_bucket.website.id
   policy = jsonencode({
     Version = "2012-10-17"
@@ -59,6 +75,21 @@ resource "aws_s3_bucket_policy" "allow_public_access" {
         Principal = "*"
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.website.arn}/*"
+      },
+      {
+        Sid      = "AllowGitHubActionsSync"
+        Effect   = "Allow"
+        Principal = {AWS = "${var.GITHUB_ACTIONS_USER_ARN}"}
+        Action   = [
+          "s3:ListBucket",
+          "s3:PutObject",
+          "s3:CopyObject",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "${aws_s3_bucket.website.arn}",
+          "${aws_s3_bucket.website.arn}/*"
+        ]
       }
     ]
   })

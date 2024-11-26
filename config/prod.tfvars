@@ -1,3 +1,6 @@
 ENV                      = "prod"
 ROUTE53_HOSTED_ZONE_NAME = "demo.powersmarter.net"
 WEBAPP_DNS               = "powersmarter.net" 
+USER_POOL_ID             = "us-east-1_UxRlIfhg5"
+CLIENT_ID                = "3t0ddf7eo26rhtm56q982v9a0p" 
+GITHUB_ACTIONS_USER_ARN  = "arn:aws:iam::572977324971:user/github-actions-terraform-deployment"

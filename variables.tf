@@ -10,8 +10,14 @@ variable "WEBAPP_DNS" {
     type = string
 }
 
-# variable "IAM_COGNITO_ASSUMABLE_ROLE_EXTERNAL_ID" {
-# default = "890"
-# }
+variable "USER_POOL_ID" {
+    type = string
+}
 
-# variable "AUTHORIZER_FILE_PATH" {}
+variable "CLIENT_ID" {
+    type = string
+}
+
+variable "GITHUB_ACTIONS_USER_ARN" {
+    type = string
+}

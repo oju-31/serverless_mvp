@@ -42,5 +42,5 @@ module "static" {
   COMMON_TAGS        = local.COMMON_TAGS
   # CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   RESOURCE_PREFIX    = local.RESOURCE_PREFIX
-  # AWS_REGION         = data.aws_region.current.name
+  GITHUB_ACTIONS_USER_ARN = var.ENV
 }
