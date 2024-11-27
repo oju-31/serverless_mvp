@@ -64,6 +64,7 @@ resource "aws_s3_bucket_public_access_block" "allow_public_access" {
 #   })
 # }
 
+# this is necesarry if you are deploying to an aws account that is not yours
 resource "aws_s3_bucket_policy" "allow_public_access_and_gha" {
   bucket = aws_s3_bucket.website.id
   policy = jsonencode({
