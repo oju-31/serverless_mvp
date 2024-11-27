@@ -17,7 +17,7 @@ locals {
 # LAMBDA MODULES
 ###########################################
 module "lambdas" {
-  source             = "./infra/lambdas"
+  source             = "./modules/lambdas"
   ENV                = var.ENV
   COMMON_TAGS        = local.COMMON_TAGS
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
@@ -37,7 +37,7 @@ module "lambdas" {
 # STATIC WEB HOSTING
 ############################################
 module "static" {
-  source                  = "./infra/web_hosting"
+  source                  = "./modules/web_hosting"
   ENV                     = var.ENV
   COMMON_TAGS             = local.COMMON_TAGS
   # CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id

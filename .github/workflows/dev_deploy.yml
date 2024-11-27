@@ -54,34 +54,34 @@ jobs:
         terraform_version: ${{ env.TF_VERSION }}
 
     - name: 'Terraform Init'
-      run: terraform init
+      run: terraform -chdir=infra init
 
     - name: 'Terraform Format'
-      run: terraform fmt
+      run: terraform -chdir=infra fmt
 
     - name: 'Terraform Validate'
-      run: terraform validate
+      run: terraform -chdir=infra validate
 
-    - name: 'Terraform force unlock'
-      run: terraform force-unlock -force 1857af4b-fa09-b2fe-9ad6-3e387d02c3be
+    # - name: 'Terraform force unlock'
+    #   run: terraform force-unlock -force 1857af4b-fa09-b2fe-9ad6-3e387d02c3be
 
     - name: 'Terraform Plan'
       if: github.event_name == 'push'
-      run: terraform plan -var-file="config/dev.tfvars" -out=tfplan
+      run: terraform -chdir=infra plan -var-file="config/dev.tfvars" -out=tfplan
 
     - name: 'Terraform Apply'
       if: github.event_name == 'push'
-      run: terraform apply -auto-approve tfplan
+      run: terraform -chdir=infra apply -auto-approve tfplan
     
     - name: Generate Frontend Variables
       run: |
-        terraform output -json > frontend/vars.json
+        terraform -chdir=infra output -json > frontend/config.json
 
 
     - name: Get S3 Bucket Name
       id: get_bucket
       run: |
-        BUCKET_NAME=$(jq -r '.S3_FRONTEND_BUCKET_NAME.value' frontend/vars.json)
+        BUCKET_NAME=$(jq -r '.S3_FRONTEND_BUCKET_NAME.value' frontend/config.json)
         echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
 
     - name: Deploy Frontend to S3
