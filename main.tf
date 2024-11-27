@@ -17,7 +17,7 @@ locals {
 # LAMBDA MODULES
 ###########################################
 module "lambdas" {
-  source             = "./modules/lambdas"
+  source             = "./infra/lambdas"
   ENV                = var.ENV
   COMMON_TAGS        = local.COMMON_TAGS
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
@@ -30,14 +30,21 @@ module "lambdas" {
 }
 
 
-############################################
-# DYNAMODB
-############################################
+# ############################################
+# # DYNAMODB
+# ############################################
+# module "tables" {
+#   ENV             = var.ENV
+#   source          = "./infra/tables"
+#   COMMON_TAGS     = local.COMMON_TAGS
+#   RESOURCE_PREFIX = "style-gen"
+# }
+
 ############################################
 # STATIC WEB HOSTING
 ############################################
 module "static" {
-  source                  = "./modules/web_hosting"
+  source                  = "./infra/web_hosting"
   ENV                     = var.ENV
   COMMON_TAGS             = local.COMMON_TAGS
   # CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id

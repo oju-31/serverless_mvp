@@ -4,6 +4,7 @@ resource "aws_cloudfront_distribution" "website_cdn" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
+  tags                = local.CDN_TAGS
 
   origin {
     domain_name = aws_s3_bucket_website_configuration.website.website_endpoint
