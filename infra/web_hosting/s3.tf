@@ -1,10 +1,3 @@
-locals {
-  PYTHON_VERSION = "python3.12"
-  LAMBDA_VERSION = "v1"
-  TAGS           = merge(var.COMMON_TAGS, tomap({"ResourceType" = "STORAGE"}))
-  FRONTEND_FILES = fileset("${path.root}/frontend", "**")
-}
-
 resource "aws_s3_bucket" "website" {
   bucket = "${var.RESOURCE_PREFIX}"
   tags   = local.S3_TAGS
