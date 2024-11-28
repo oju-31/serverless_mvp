@@ -16,8 +16,8 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.AWS_REGION
 }
 
 data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
+# data "aws_region" "current" {}

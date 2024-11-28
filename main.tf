@@ -1,8 +1,8 @@
 locals {
-  DOMAIN_NAME         = "api.${var.WEBAPP_DNS}"
+  # DOMAIN_NAME         = "api.${var.WEBAPP_DNS}"
   RESOURCE_PREFIX     = "${var.ENV}-ahlorq-style-gen"
   ACCOUNTID           = data.aws_caller_identity.current.account_id
-  cognito_domain_name = "auth.${var.WEBAPP_DNS}"
+  # cognito_domain_name = "auth.${var.WEBAPP_DNS}"
   COMMON_TAGS          = { 
     Environment = var.ENV 
     Application = "webapp-serverless"
@@ -22,10 +22,8 @@ module "lambdas" {
   COMMON_TAGS        = local.COMMON_TAGS
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   RESOURCE_PREFIX    = local.RESOURCE_PREFIX
-  AWS_REGION         = data.aws_region.current.name
-
-  # POOL_ID                                    = module.app_cognito.COGNITO_USER_POOL_ID
-  # CLIENT_ID                                  = module.app_cognito.COGNITO_USER_CLIENT_ID
+  POOL_ID            = var.COGNITO_USER_POOL_ID
+  CLIENT_ID          = var.COGNITO_CLIENT_ID
   # CLIENT_SECRET                              = module.app_cognito.COGNITO_USER_CLIENT_SECRET
 }
 

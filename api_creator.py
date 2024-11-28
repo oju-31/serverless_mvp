@@ -1,6 +1,7 @@
 import os
 import re
-
+# remenber I didnt add the part that create output resources (at in lambda and root)
+# for the lambda endpoints, aka function urls
 
 def validate_input(name: str, input_type: str) -> bool:
     """
