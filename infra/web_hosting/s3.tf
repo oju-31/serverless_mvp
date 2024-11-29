@@ -14,24 +14,24 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 
 # Optional: Initial file uploads via Terraform
-resource "aws_s3_object" "frontend_files" {
-  for_each = local.FRONTEND_FILES
-  bucket       = aws_s3_bucket.website.id
-  key          = each.value
-  source       = "${path.root}/frontend/${each.value}"
-  content_type = lookup({
-    "html" = "text/html",
-    "css"  = "text/css",
-    "js"   = "application/javascript",
-    "json" = "application/json",
-    "png"  = "image/png",
-    "jpg"  = "image/jpeg",         
-    "jpeg" = "image/jpeg",        
-    "gif"  = "image/gif" 
-  }, regex("\\.([^.]+)$", each.value)[0], "application/octet-stream")
+# resource "aws_s3_object" "frontend_files" {
+#   for_each = local.FRONTEND_FILES
+#   bucket       = aws_s3_bucket.website.id
+#   key          = each.value
+#   source       = "${path.root}/frontend/${each.value}"
+#   content_type = lookup({
+#     "html" = "text/html",
+#     "css"  = "text/css",
+#     "js"   = "application/javascript",
+#     "json" = "application/json",
+#     "png"  = "image/png",
+#     "jpg"  = "image/jpeg",         
+#     "jpeg" = "image/jpeg",        
+#     "gif"  = "image/gif" 
+#   }, regex("\\.([^.]+)$", each.value)[0], "application/octet-stream")
 
-  etag = filemd5("${path.root}/frontend/${each.value}")
-}
+#   etag = filemd5("${path.root}/frontend/${each.value}")
+# }
 
 resource "aws_s3_bucket_public_access_block" "allow_public_access" {
   bucket = aws_s3_bucket.website.id

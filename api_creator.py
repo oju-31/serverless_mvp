@@ -131,7 +131,9 @@ def append_infra_code(module_name: str, api_name: str):
         "data": f"{base_path}/func_data.tf",
         "main": f"{base_path}/func_main.tf",
         "policies": f"{base_path}/func_policies.tf",
-        "roles": f"{base_path}/func_roles.tf"
+        "roles": f"{base_path}/func_roles.tf",
+        "outputs": f"{base_path}/func_outputs.tf",
+        "global_outputs": "outputs.tf"
     }
 
     # Data file content
@@ -140,6 +142,18 @@ data "archive_file" "{api_name}" {{
   type        = "zip"
   source_dir  = "${{path.root}}/backend/{module_name}/{api_name}_pkg"
   output_path = "${{path.root}}/backend/{module_name}/zip/{api_name}.zip"
+}}'''
+
+    # lambda Output file content
+    outputs_content = f'''
+output "LAMBDA_{api_name.upper()}_ENDPOINT" {{
+  value = aws_lambda_function_url.{api_name}.function_url
+}}'''
+    
+    # Global outputs content for outputs.tf
+    global_outputs_content = f'''
+output "{api_name.upper()}_ENDPOINT" {{
+  value = module.lambdas.LAMBDA_{api_name.upper()}_ENDPOINT
 }}'''
 
     # Main file content
@@ -216,7 +230,9 @@ resource "aws_iam_role" "{api_name}" {{
         "data": data_content,
         "main": main_content,
         "policies": policies_content,
-        "roles": roles_content
+        "roles": roles_content,
+        "outputs": outputs_content,
+        "global_outputs": global_outputs_content
     }
 
     # Append content to each file
@@ -244,4 +260,4 @@ def create_api(module, api):
     append_infra_code(module, api)
 
 
-# create_api("ttt uua", "api jj")
+# create_api("calls", "outgoing_call")

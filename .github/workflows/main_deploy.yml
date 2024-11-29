@@ -8,10 +8,10 @@ on:
     branches:
       - main
 # temporary not in use
-# jobs:
-#   terraform:
-#     name: 'Terraform and Python Lint'
-#     runs-on: ubuntu-latest
+jobs:
+  terraform:
+    name: 'Terraform and Python Lint'
+    runs-on: ubuntu-latest
 
 #     env:
 #       AWS_REGION: 'eu-west-2'

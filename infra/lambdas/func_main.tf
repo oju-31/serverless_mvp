@@ -52,6 +52,3 @@ resource "aws_lambda_function_url" "generate_prompts" {
   authorization_type = "NONE"
 }
 
-# ---------------------------------------
-# POST_SIGNUP LAMBDA
-#----------------------------------------

@@ -3,6 +3,18 @@ import shutil
 import re
 
 
+def validate_input(name: str, input_type: str) -> bool:
+    """
+    Validates that the input string contains only alphanumeric
+    characters and underscores.
+    Returns True if valid, raises ValueError if invalid.
+    """
+    pattern = re.compile(r'^[a-zA-Z0-9_]+$')
+    if not pattern.match(name):
+        raise ValueError(f"{input_type} must contain only letters, numbers, and underscores")
+    return True
+
+
 def undo_backend_creation(module_name: str, api_name: str):
     """
     Undo the changes made by create_backend function.
@@ -76,7 +88,9 @@ def undo_infra_code(module_name: str, api_name: str):
             "data": (f"{base_path}/func_data.tf", f'data "archive_file" "{api_name}"', 5),
             "main": (f"{base_path}/func_main.tf", f'resource "aws_lambda_function" "{api_name}"', 20),
             "policies": (f"{base_path}/func_policies.tf", f'# {api_name.upper()} POLICY', 18),
-            "roles": (f"{base_path}/func_roles.tf", f'# {api_name.upper()} ROLE', 18)
+            "roles": (f"{base_path}/func_roles.tf", f'# {api_name.upper()} ROLE', 18),
+            "outputs": (f"{base_path}/func_outputs.tf", f'output "LAMBDA_{api_name.upper()}_ENDPOINT"', 3),
+            "global_outputs": ("outputs.tf", f'output "{api_name.upper()}_ENDPOINT"', 3)
         }
 
         # Process each file
@@ -118,4 +132,15 @@ def undo_infra_code(module_name: str, api_name: str):
         return False
 
 
-undo_infra_code("core", "post_signup")
+def delete_api(module, api):
+    try:
+        validate_input(module, "Module name")
+        validate_input(api, "API name")
+    except ValueError as e:
+        print(f"Input validation error: {str(e)}")
+        return False
+    undo_backend_creation(module, api)
+    undo_infra_code(module, api)
+
+
+# delete_api("calls", "outgoing_call")

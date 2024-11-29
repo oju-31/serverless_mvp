@@ -9,4 +9,3 @@ data "archive_file" "generate_prompts" {
   source_dir  = "${path.root}/backend/generators/generate_prompts_pkg"
   output_path = "${path.root}/backend/generators/zip/generate_prompts.zip"
 }
-
