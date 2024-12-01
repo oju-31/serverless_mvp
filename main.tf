@@ -21,22 +21,22 @@ module "lambdas" {
   ENV                = var.ENV
   COMMON_TAGS        = local.COMMON_TAGS
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
+  ALBUM_TABLE        = module.tables.ALBUM_TABLE_NAME
   RESOURCE_PREFIX    = local.RESOURCE_PREFIX
   POOL_ID            = var.COGNITO_USER_POOL_ID
   CLIENT_ID          = var.COGNITO_CLIENT_ID
-  # CLIENT_SECRET                              = module.app_cognito.COGNITO_USER_CLIENT_SECRET
+  # CLIENT_SECRET    = module.app_cognito.COGNITO_USER_CLIENT_SECRET
 }
 
 
-# ############################################
-# # DYNAMODB
-# ############################################
-# module "tables" {
-#   ENV             = var.ENV
-#   source          = "./infra/tables"
-#   COMMON_TAGS     = local.COMMON_TAGS
-#   RESOURCE_PREFIX = "style-gen"
-# }
+############################################
+# DYNAMODB
+############################################
+module "tables" {
+  source          = "./infra/tables"
+  COMMON_TAGS     = local.COMMON_TAGS
+  RESOURCE_PREFIX = local.RESOURCE_PREFIX
+}
 
 ############################################
 # STATIC WEB HOSTING
