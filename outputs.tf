@@ -16,6 +16,23 @@ EOT
 #  API ENDPOINTS
 #-------------------------------
 
-output "LOGIN_ENDPOINT" {
-  value = module.lambdas.LAMBDA_LOGIN_ENDPOINT
+
+
+output "SEND_PROMPTS_ENDPOINT" {
+  value = module.lambdas.LAMBDA_SEND_PROMPTS_ENDPOINT
+}
+output "GET_TOKEN_ENDPOINT" {
+  value = module.lambdas.LAMBDA_GET_TOKEN_ENDPOINT
+}
+output "STORE_IMAGES_ENDPOINT" {
+  value = module.lambdas.LAMBDA_STORE_IMAGES_ENDPOINT
+}
+output "GET_IMAGES_ENDPOINT" {
+  value = module.lambdas.LAMBDA_GET_IMAGES_ENDPOINT
+}
+output "GET_ALBUMS_ENDPOINT" {
+  value = module.lambdas.LAMBDA_GET_ALBUMS_ENDPOINT
+}
+output "UPDATE_ALBUM_ENDPOINT" {
+  value = module.lambdas.LAMBDA_UPDATE_ALBUM_ENDPOINT
 }

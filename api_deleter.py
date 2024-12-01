@@ -15,7 +15,7 @@ def validate_input(name: str, input_type: str) -> bool:
     return True
 
 
-def undo_backend_creation(module_name: str, api_name: str):
+def undo_backend_creation(api_name: str):
     """
     Undo the changes made by create_backend function.
     Returns True if successful, False if any errors occur.
@@ -24,15 +24,15 @@ def undo_backend_creation(module_name: str, api_name: str):
         # Define paths
         backend_path = "backend"
         tests_path = os.path.join(backend_path, "unit_tests")
-        module_path = os.path.join(backend_path, module_name)
-        api_pkg_path = os.path.join(module_path, f"{api_name}_pkg")
-        test_module_path = os.path.join(tests_path, f"{module_name}_tests")
+        api_pkg_path = os.path.join(backend_path, f"{api_name}_pkg")
+        #api_pkg_path = os.path.join(module_path, f"{api_name}_pkg")
+        #test_module_path = os.path.join(tests_path, f"{module_name}_tests")
 
         # Remove files first
         files_to_remove = [
             os.path.join(api_pkg_path, f"{api_name}.py"),
             os.path.join(api_pkg_path, f"vldt_{api_name}.py"),
-            os.path.join(test_module_path, f"test_{api_name}.py")
+            os.path.join(tests_path, f"test_{api_name}.py")
         ]
 
         for file_path in files_to_remove:
@@ -41,34 +41,27 @@ def undo_backend_creation(module_name: str, api_name: str):
                 print(f"Removed file: {file_path}")
 
         # Remove directories (only if empty)
-        dirs_to_remove = [
-            api_pkg_path,
-            module_path,
-            test_module_path
-        ]
-
-        for dir_path in dirs_to_remove:
-            if os.path.exists(dir_path):
-                try:
-                    os.rmdir(dir_path)
-                    print(f"Removed empty directory: {dir_path}")
-                except OSError:
-                    # Directory not empty, check if we should force remove
-                    if len(os.listdir(dir_path)) == 0:
-                        shutil.rmtree(dir_path)
-                        print(f"Removed directory tree: {dir_path}")
-                    else:
-                        print(f"Directory not removed as it contains other files: {dir_path}")
+        if os.path.exists(api_pkg_path):
+            try:
+                os.rmdir(api_pkg_path)
+                print(f"Removed empty directory: {api_pkg_path}")
+            except OSError:
+                # Directory not empty, check if we should force remove
+                if len(os.listdir(api_pkg_path)) == 0:
+                    shutil.rmtree(api_pkg_path)
+                    print(f"Removed directory tree: {api_pkg_path}")
+                else:
+                    print(f"Directory not removed as it contains other files: {api_pkg_path}")
 
         # Clean up empty test directory if it exists and is empty
-        if os.path.exists(tests_path) and len(os.listdir(tests_path)) == 0:
-            os.rmdir(tests_path)
-            print(f"Removed empty tests directory: {tests_path}")
+        # if os.path.exists(tests_path) and len(os.listdir(tests_path)) == 0:
+        #     os.rmdir(tests_path)
+        #     print(f"Removed empty tests directory: {tests_path}")
 
         # Clean up empty backend directory if it exists and is empty
-        if os.path.exists(backend_path) and len(os.listdir(backend_path)) == 0:
-            os.rmdir(backend_path)
-            print(f"Removed empty backend directory: {backend_path}")
+        # if os.path.exists(backend_path) and len(os.listdir(backend_path)) == 0:
+        #     os.rmdir(backend_path)
+        #     print(f"Removed empty backend directory: {backend_path}")
 
         return True
 
@@ -77,7 +70,7 @@ def undo_backend_creation(module_name: str, api_name: str):
         return False
 
 
-def undo_infra_code(module_name: str, api_name: str):
+def undo_infra_code(api_name: str):
     """
     Removes specific blocks of infrastructure code related to the given api_name
     """
@@ -132,15 +125,14 @@ def undo_infra_code(module_name: str, api_name: str):
         return False
 
 
-def delete_api(module, api):
+def delete_api(api):
     try:
-        validate_input(module, "Module name")
         validate_input(api, "API name")
     except ValueError as e:
         print(f"Input validation error: {str(e)}")
         return False
-    undo_backend_creation(module, api)
-    undo_infra_code(module, api)
+    undo_backend_creation(api)
+    undo_infra_code(api)
 
 
-# delete_api("calls", "outgoing_call")
+delete_api("get_token")

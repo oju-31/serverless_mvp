@@ -15,21 +15,21 @@ def validate_input(name: str, input_type: str) -> bool:
     return True
 
 
-def create_backend(module_name: str, api_name: str):
+def create_backend(api_name: str):
     # Define base paths
     backend_path = "backend"
     tests_path = os.path.join(backend_path, "unit_tests")
-    module_path = os.path.join(backend_path, module_name)
-    api_pkg_path = os.path.join(module_path, f"{api_name}_pkg")
+    api_pkg_path = os.path.join(backend_path, f"{api_name}_pkg")
+    # api_pkg_path = os.path.join(module_path, f"{api_name}_pkg")
 
     # Create backend folder if it doesn't exist
     os.makedirs(backend_path, exist_ok=True)
     os.makedirs(tests_path, exist_ok=True)
 
     # Create module folder if it doesn't exist
-    if not os.path.exists(module_path):
-        os.makedirs(module_path)
-        print(f"Created module folder: {module_path}")
+    # if not os.path.exists(module_path):
+    #     os.makedirs(module_path)
+    #     print(f"Created module folder: {module_path}")
 
     # Create api package folder
     os.makedirs(api_pkg_path, exist_ok=True)
@@ -113,10 +113,10 @@ def make_response(status, message, log=True):
     print(f"Created validate file: {validate_file_path}")
 
     # Create test folder and file
-    test_module_path = os.path.join(tests_path, f"{module_name}_tests")
-    os.makedirs(test_module_path, exist_ok=True)
+    # test_module_path = os.path.join(tests_path, f"{module_name}_tests")
+    # os.makedirs(test_module_path, exist_ok=True)
 
-    test_file_path = os.path.join(test_module_path, f"test_{api_name}.py")
+    test_file_path = os.path.join(tests_path, f"test_{api_name}.py")
     with open(test_file_path, 'w') as f:
         f.write(f"# Test file for {api_name}")
     print(f"Created test file: {test_file_path}")
@@ -124,7 +124,7 @@ def make_response(status, message, log=True):
     return True
 
 
-def append_infra_code(module_name: str, api_name: str):
+def append_infra_code(api_name: str):
     # Define the base path and file paths
     base_path = "infra/lambdas"
     files = {
@@ -140,8 +140,8 @@ def append_infra_code(module_name: str, api_name: str):
     data_content = f'''
 data "archive_file" "{api_name}" {{
   type        = "zip"
-  source_dir  = "${{path.root}}/backend/{module_name}/{api_name}_pkg"
-  output_path = "${{path.root}}/backend/{module_name}/zip/{api_name}.zip"
+  source_dir  = "${{path.root}}/backend/{api_name}_pkg"
+  output_path = "${{path.root}}/backend/zip/{api_name}.zip"
 }}'''
 
     # lambda Output file content
@@ -162,7 +162,7 @@ output "{api_name.upper()}_ENDPOINT" {{
 # {api_name.upper()} LAMBDA
 #----------------------------------------
 resource "aws_lambda_function" "{api_name}" {{
-  filename         = "${{path.root}}/backend/{module_name}/zip/{api_name}.zip"
+  filename         = "${{path.root}}/backend/zip/{api_name}.zip"
   function_name    = "${{var.RESOURCE_PREFIX}}-{api_name}-${{local.LAMBDA_VERSION}}"
   role             = "${{aws_iam_role.{api_name}.arn}}"
   handler          = "{api_name}.lambda_handler"
@@ -249,15 +249,14 @@ resource "aws_iam_role" "{api_name}" {{
     return True
 
 
-def create_api(module, api):
+def create_api(api):
     try:
-        validate_input(module, "Module name")
         validate_input(api, "API name")
     except ValueError as e:
         print(f"Input validation error: {str(e)}")
         return False
-    create_backend(module, api)
-    append_infra_code(module, api)
+    create_backend(api)
+    append_infra_code(api)
 
 
-# create_api("calls", "outgoing_call")
+create_api("update_album")
