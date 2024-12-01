@@ -4,9 +4,9 @@ locals {
   TAGS = merge(var.COMMON_TAGS, tomap({"ResourceType" = "COMPUTE"}))
 }
 
-# ---------------------------------------
+# ---------------------------------------------
 # SEND_PROMPTS LAMBDA
-#----------------------------------------
+#----------------------------------------------
 resource "aws_lambda_function" "send_prompts" {
   filename         = "${path.root}/backend/zip/send_prompts.zip"
   function_name    = "${var.RESOURCE_PREFIX}-send_prompts-${local.LAMBDA_VERSION}"
@@ -26,9 +26,9 @@ resource "aws_lambda_function_url" "send_prompts" {
   function_name      = aws_lambda_function.send_prompts.function_name
   authorization_type = "NONE"
 }
-# ---------------------------------------
+# ------------------------------------------
 # GET_TOKEN LAMBDA
-#----------------------------------------
+#-------------------------------------------
 resource "aws_lambda_function" "get_token" {
   filename         = "${path.root}/backend/zip/get_token.zip"
   function_name    = "${var.RESOURCE_PREFIX}-get_token-${local.LAMBDA_VERSION}"
@@ -40,7 +40,9 @@ resource "aws_lambda_function" "get_token" {
   tags             = local.TAGS
   environment {
     variables = {
-      ENV           = "${var.ENV}"
+      ENV             = "${var.ENV}"
+      HOME_PAGE       = "${var.HOME_PAGE}"
+      COGNITO_DOMAIN  = "https://us-east-1uxrlifhg5.auth.us-east-1.amazoncognito.com/oauth2/token"
     }
   }
 }

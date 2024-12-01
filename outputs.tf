@@ -16,8 +16,6 @@ EOT
 #  API ENDPOINTS
 #-------------------------------
 
-
-
 output "SEND_PROMPTS_ENDPOINT" {
   value = module.lambdas.LAMBDA_SEND_PROMPTS_ENDPOINT
 }

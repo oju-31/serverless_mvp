@@ -60,10 +60,9 @@ def lambda_handler(event, context):
     status_code = 400
     logger.info(event)
     resp = {{
-        "error": True,
-        "success": False,
+        "status": "Error",
         "message": "server error",
-        "data": None
+        "data": {{}}
     }}
 
     try:
