@@ -5,5 +5,5 @@ output "S3_FRONTEND_BUCKET_NAME" {
 
 output "CLOUDFRONT_DOMAIN_NAME" {
   value       = aws_cloudfront_distribution.website_cdn.domain_name
-  description = "This is used to construct the login url in the root output file."
+  description = "This is used to construct the login url in the root output."
 }

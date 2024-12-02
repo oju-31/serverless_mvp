@@ -53,7 +53,10 @@ def lambda_handler(event, context):
                 'Set-Cookie': f"access_token={access_token}; Secure; HttpOnly; Path=/",
                 'Content-Type': 'application/json'
             }
-            resp["message"] = "Tokens stored in cookies"
+            resp = {
+                "status": "Success",
+                "message": "Tokens stored in cookies"
+            }
         # Basic structural validation
         parts = access_token.split('.')
         if len(parts) != 3:
@@ -90,7 +93,7 @@ def lambda_handler(event, context):
         logger.error(e)
         resp["message"] = str(e)
 
-    return make_response(status_code, head, resp)
+    return make_response(status_code, resp, head)
 
 
 def make_response(status, message, headers, log=True):

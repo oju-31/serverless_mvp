@@ -1,22 +1,26 @@
 import boto3
-import os
 import logging
+import create_prompts as c
+import random
+from raw_data import clothConfig, clothParts
+from os import getenv
 from botocore.exceptions import BotoCoreError, ClientError
 from vldt_send_prompts import validate_event
 
-# POOL_ID = os.environ["POOL_ID"]
-# CLIENT_ID = os.environ["CLIENT_ID"]
-# CLIENT_SECRET = os.environ["CLIENT_SECRET"]
+POOL_ID = getenv('ENV')
+CLIENT_ID = getenv('ENV')
 cognito_client = boto3.client('cognito-idp')
-table_name = os.getenv('ENV')
+table_name = getenv('ENV')
 # db = boto3.resource("dynamodb")
 # table = db.Table(table_name)
+clothes = {}
 
 if logging.getLogger().hasHandlers():
     logging.getLogger().setLevel(logging.INFO)
 else:
     logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
+
 
 def lambda_handler(event, context):
     status_code = 400
@@ -29,7 +33,22 @@ def lambda_handler(event, context):
     }
 
     try:
-        username, password = validate_event(event)
+        payload = validate_event(event)
+        cloth_type, num_prompts = payload["clothType"], payload['numPrompts']
+        num_feat = payload["numExtFeatures"]
+        main_feat = payload.get("mainFeature", '')
+        
+        cloth = c.selectFeatures(clothConfig[cloth_type], num_feat, num_prompts)
+        all_prompts = ""
+        num = 1
+        for i in cloth:
+            features = c.featured(1, 1, clothParts[cloth_type], main_feat)
+            prompt = c.create_clothing_prompts(i, features)
+            all_prompts += f"{num}. "
+            all_prompts += prompt
+            num += 1
+
+        print(all_prompts)
     except ValueError as e:
         logger.error(e)
         resp["message"] = f"A validation error occurred: {str(e)}"
@@ -51,3 +70,4 @@ def make_response(status, message, log=True):
         "statusCode": status,
         "body": message
     }
+

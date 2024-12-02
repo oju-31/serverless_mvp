@@ -18,7 +18,9 @@ resource "aws_lambda_function" "send_prompts" {
   tags             = local.TAGS
   environment {
     variables = {
-      ENV           = "${var.ENV}"
+      ENV       = "${var.ENV}"
+      POOL_ID   = "${var.POOL_ID}"
+      CLIENT_ID = "${var.CLIENT_ID}"
     }
   }
 }
@@ -40,9 +42,9 @@ resource "aws_lambda_function" "get_token" {
   tags             = local.TAGS
   environment {
     variables = {
-      ENV             = "${var.ENV}"
-      HOME_PAGE       = "${var.HOME_PAGE}"
-      COGNITO_DOMAIN  = "https://us-east-1uxrlifhg5.auth.us-east-1.amazoncognito.com/oauth2/token"
+      ENV                     = "${var.ENV}"
+      HOME_PAGE               = "${var.HOME_PAGE}"
+      COGNITO_TOKEN_ENDPOINT  = "https://us-east-1hyef8garn.auth.us-east-1.amazoncognito.com/oauth2/token"
     }
   }
 }

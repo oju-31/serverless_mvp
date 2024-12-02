@@ -22,7 +22,7 @@ module "lambdas" {
   COMMON_TAGS        = local.COMMON_TAGS
   CURRENT_ACCOUNT_ID = data.aws_caller_identity.current.account_id
   ALBUM_TABLE        = module.tables.ALBUM_TABLE_NAME
-  HOME_PAGE          = module.static.CLOUDFRONT_DOMAIN_NAME
+  HOME_PAGE          = "https://${module.static.CLOUDFRONT_DOMAIN_NAME}"
   RESOURCE_PREFIX    = local.RESOURCE_PREFIX
   POOL_ID            = var.COGNITO_USER_POOL_ID
   CLIENT_ID          = var.COGNITO_CLIENT_ID

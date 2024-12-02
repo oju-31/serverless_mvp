@@ -1,6 +1,6 @@
 ENV                      = "dev"
 # ROUTE53_HOSTED_ZONE_NAME = "demo.powersmarter.net"
 # WEBAPP_DNS               = "demo.powersmarter.net" 
-COGNITO_USER_POOL_ID     = "us-east-1_UxRlIfhg5"
-COGNITO_CLIENT_ID        = "3t0ddf7eo26rhtm56q982v9a0p" 
+COGNITO_USER_POOL_ID     = "us-east-1_frUeRkddx"
+COGNITO_CLIENT_ID        = "31no8j92vlnf446p9ubk275rds" 
 GITHUB_ACTIONS_USER_ARN  = "arn:aws:iam::572977324971:user/github-actions-terraform-deployment"

@@ -2,20 +2,16 @@
 embellishment = [
     "Sequins", "beads", "crystals", "pearls", "feathers", "studs","rhinestones",
     "lace trim", "embroidery", "appliques", "tassels", "fringes",
-     "crochet details",
-    "flounces","rosettes", "brooches", "ribbon", "sashes", "tiers",
-      "pockets", "paneling", "piping", "quilting",
-    "draping", "fishtail", "fluted hem",  "high-low hem",
+    "crochet details", "flounces","rosettes", "brooches", "ribbon", "sashes", 
+    "tiers", "pockets", "paneling", "piping", "quilting",
+    "draping", "fishtail", "fluted hem", "high-low hem",
     "ruching", "shirring", "laser-cut detailing"
 ]
 aesthetic = [
     "elegant", "chic", "stylish", "refined", "polished", "tasteful",
     "fashionable", "trendy", "modern", "sleek", "upscale",
-    "luxurious", "high-end",
-    "glamorous", "classic", "exquisite", "sumptuous",
-    "opulent", "artistic", "sophisticated",
-    "posh"
-
+    "luxurious", "high-end","glamorous", "classic", "exquisite", "sumptuous",
+    "opulent", "artistic", "sophisticated","posh"
 ]
 
 aestheticDesign = [
@@ -65,7 +61,6 @@ pattern = [
     "windowpane", "leopard", "tiger", "zebra", "snake", "giraffe", "cow",
     "tartan", "ombre", "tie-dye", "dip-dye", "art deco", "mosaic", "geometric",
     "abstract", "argyle", "monochrome", "gradient",
-
 ]
 
 fabric = [
@@ -90,19 +85,22 @@ theme = [
     "Hippie", "Romantic", "Renaissance", "Baroque", "Bauhaus", "folklore"
 ]
 
-design = [
-    "asymmetrical hem", "asymmetrical necklinne", "asymmetrical waistline",
-    "cut-out", "symmetrical", "patchwork", "slit",
-]
-
-tone = ["multicolor", "neon", "jewel tone", "earth tone", "pastel"]
-# adjust fit for all clothes
 fit = [
     "snug", "body-hugging", "slim fit", "regular fit", "relaxed fit",
     "loose fit", "oversized", "baggy"
 ]
 
-body_shapes = ["slim", "athletic", "curvy", "petite", "plump", "robust"]
+tone = ["multicolor", "neon", "jewel tone", "earth tone", "pastel"]
+
+closure = [
+    "front zipper", "back zipper", "side zipper", "invisible zipper",
+    "button-up", "snap buttons", "hook-and-eye closure", "lace-up",
+    "corset back", "tie back", "velcro", "magnetic closure", "toggle closure",
+    "buckle", "clasp", "drawstring", "belted", "double-breasted",
+    "single-breasted", "frog closure", "loop and button", "shawl tie"
+]
+
+bodyShapes = ["slim", "athletic", "curvy", "petite", "plump", "robust"]
 
 # Attributes Common to Tops and Dresses
 sleeve = [
@@ -116,11 +114,8 @@ sleeve = [
     "hanging", "jersey","looped", "melon", "open", "paneled", "rebato",
     "Virago", "sleeveless"
 ]
-
 sleeveLength = ["three-quarter", "elbow-length", "long", "short"]
-
 collar = ["mandarin collar", "peter pan collar", "shawl collar"]
-
 neckline = [
     "Crew", "boat", "square", "sweetheart", "keyhole","illusion", "jewel",
     "turtleneck", "mock", "scoop","surplice", "cowl", "henley",
@@ -128,14 +123,12 @@ neckline = [
     "drape", "U-neck", "V-neck", "round", "bandeau", "straight across", "cowl",
     "scalloped"
 ]
-
-closure = [
-    "front zipper", "back zipper", "side zipper", "invisible zipper",
-    "button-up", "snap buttons", "hook-and-eye closure", "lace-up",
-    "corset back", "tie back", "velcro", "magnetic closure", "toggle closure",
-    "buckle", "clasp", "drawstring", "belted", "double-breasted",
-    "single-breasted", "frog closure", "loop and button", "shawl tie"
+# what is this?
+design = [
+    "asymmetrical hem", "asymmetrical necklinne", "asymmetrical waistline",
+    "cut-out", "symmetrical", "patchwork", "slit",
 ]
+
 # Attributes Common to Skirts and Dresses
 length = [
     "knee-length", "mini", "short", "long", "three-quarter", "train-length",
@@ -150,10 +143,9 @@ dressStyle = [
     "shirtdress", "t-shirt", "sweater", "bandeau", "corset", "tutu",
     "prairie","wraparound", "pinafore", "blouson", "shirtwaist", "apron",
     "empire line", "flapper","sundress", "princess cut","bias cut", "panelled",
-    "peplum", "origami", "convertible", "layered", "fringed","surplice",
-    "jersey", "yoke", "one-shoulder", "drop waist"
+    "peplum", "origami", "convertible", "layered", "fringed","surplice", "yoke",
+    "one-shoulder", "drop waist"
 ]
-
 dressFit = [
     "Tailored", "snug", "body-hugging", "form-fitting", "fitted", "slim fit",
     "regular fit", "relaxed fit","loose fit", "oversized", "baggy", "boxy",
@@ -162,6 +154,7 @@ dressFit = [
     "empire waist", "straight fit", "hourglass silhouette",
     "sheath", "columnar", "contoured"
 ]
+dressParts = ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"]
 
 # Tops Atrributes only
 topStyle = [
@@ -172,19 +165,20 @@ topStyle = [
     "blouson", "shirtwaist", "halterneck", "empire line", "panelled", "fringed",
     "princess cut", "bias cut", "surplice", "convertible", "origami", "layered",
 ]
-
 topLength = ["normal", "crop", "hip-length"]
-top_parts = ["neckline", "waist", "hem", "sleeve", "chest", "front"]
+topParts = ["neckline", "waist", "hem", "sleeve", "chest", "front"]
 
+# Trousers Atrributes only
+trouserLength = ["capri", "full-length", "ankle-length"]
+trouserTypes = ["trouser", "short", "knicker"]
+trouserParts = [
+    "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
+]
 trouserWaistline = ["low", "high"]
 trouserStyle = [
     "palazzo", "cargo", "track", "gaucho", "bootcut", "skinny", "straight",
     "wide", "flare", "culottes"
 ]
-
-trouserLength = ["capri", "full-length", "ankle-length"]
-trouserType = ["trouser", "short knicker"]
-
 # if shorts, no length
 # if cargo or track, no fabric
 
@@ -196,10 +190,68 @@ skirtStyle = [
     "mermaid", "sarong", "skater", "fishtail", "peplum", "bias-cut", "godet",
     "dirndl", "knitted"
 ]
+skirtParts = ["waist", "hem", "side", "front"]
 
-skirt_parts = ["waist", "hem", "side", "front"]
+#---------------------
+# CLOTHES DICTIONARY
+#--------------------
+baseDict = {
+    "embellishments": embellishment,
+    "aesthetic": aesthetic,
+    "woman": bodyShapes,
+    "occasion": occasion,
+    "closure": closure,
+    "fabric": fabric,
+    "theme": theme,
+    "colour": colour,
+    "pattern": pattern
+}
 
-dress_parts = ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"]
-trouser_parts = [
-    "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
-]
+clothConfig = {
+    "skirt": {
+        **baseDict,
+        "length": length,
+        "waistline": skirtWaistline,
+        "style": skirtStyle
+    },
+    
+    "dress": {
+        **baseDict,
+        "length": length,
+        "neckline": neckline,
+        "style": dressStyle,
+        "sleeve": sleeve
+    },
+    
+    "top": {
+        **baseDict,
+        "neckline": neckline,
+        "length": topLength,
+        "style": topStyle,
+        "sleeve": sleeve
+    },
+    
+    "trousers": {
+        **baseDict,
+        "length": length,
+        "waistline": trouserWaistline,
+        "style": trouserStyle
+    }
+}
+
+
+clothParts = {
+    "skirt": ["waist", "hem", "side", "front"],
+    "dress": ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"],
+    "top": ["neckline", "waist", "hem", "sleeve", "chest", "front"],
+    "trousers": [
+        "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
+    ]
+}
+
+
+# Usage:
+# skirtDict = CLOTHING_CONFIGS["skirt"]
+# dressDict = CLOTHING_CONFIGS["dress"] 
+# topDict = CLOTHING_CONFIGS["top"]
+# trouserDict = CLOTHING_CONFIGS["trousers"]
