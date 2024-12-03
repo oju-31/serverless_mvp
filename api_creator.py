@@ -61,8 +61,7 @@ def lambda_handler(event, context):
     logger.info(event)
     resp = {{
         "status": "Error",
-        "message": "server error",
-        "data": {{}}
+        "message": "server error"
     }}
 
     try:
@@ -162,7 +161,7 @@ output "{api_name.upper()}_ENDPOINT" {{
 #----------------------------------------
 resource "aws_lambda_function" "{api_name}" {{
   filename         = "${{path.root}}/backend/zip/{api_name}.zip"
-  function_name    = "${{var.RESOURCE_PREFIX}}-{api_name}-${{local.LAMBDA_VERSION}}"
+  function_name    = "{api_name}-${{var.RESOURCE_PREFIX}}-${{local.LAMBDA_VERSION}}"
   role             = "${{aws_iam_role.{api_name}.arn}}"
   handler          = "{api_name}.lambda_handler"
   source_code_hash = data.archive_file.{api_name}.output_base64sha256
@@ -186,7 +185,7 @@ resource "aws_lambda_function_url" "{api_name}" {{
 # {api_name.upper()} POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "{api_name}" {{
-  name = "${{var.RESOURCE_PREFIX}}-lambda-{api_name}-policy"
+  name = "{api_name}-lambda-policy-${{var.RESOURCE_PREFIX}}"
   role = aws_iam_role.{api_name}.id
    policy = jsonencode({{
     Version = "2012-10-17"
@@ -208,7 +207,7 @@ resource "aws_iam_role_policy" "{api_name}" {{
 # {api_name.upper()} ROLE
 #----------------------------------------
 resource "aws_iam_role" "{api_name}" {{
-   name = "${{var.RESOURCE_PREFIX}}-lambda-{api_name}-role"
+   name = "{api_name}-lambda-role-${{var.RESOURCE_PREFIX}}"
    assume_role_policy = jsonencode({{
      "Version" : "2012-10-17",
      "Statement" : [

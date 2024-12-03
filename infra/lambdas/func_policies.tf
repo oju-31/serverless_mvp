@@ -2,7 +2,7 @@
 # GENERATE PROMPTS POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "generate_prompts" {
-  name = "${var.RESOURCE_PREFIX}-lambda-generate-prompts-policy"
+  name = "generate-prompts-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.generate_prompts.id
 
   # Terraform's "jsonencode" function converts a
@@ -26,7 +26,7 @@ resource "aws_iam_role_policy" "generate_prompts" {
 # SEND_PROMPTS POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "send_prompts" {
-  name = "${var.RESOURCE_PREFIX}-lambda-send_prompts-policy"
+  name = "send-prompts-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.send_prompts.id
    policy = jsonencode({
     Version = "2012-10-17"
@@ -45,7 +45,7 @@ resource "aws_iam_role_policy" "send_prompts" {
 # GET_TOKEN POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "get_token" {
-  name = "${var.RESOURCE_PREFIX}-lambda-get_token-policy"
+  name = "get-token-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.get_token.id
    policy = jsonencode({
     Version = "2012-10-17"
@@ -64,7 +64,7 @@ resource "aws_iam_role_policy" "get_token" {
 # STORE_IMAGES POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "store_images" {
-  name = "${var.RESOURCE_PREFIX}-lambda-store_images-policy"
+  name = "store-images-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.store_images.id
    policy = jsonencode({
     Version = "2012-10-17"
@@ -83,7 +83,7 @@ resource "aws_iam_role_policy" "store_images" {
 # GET_IMAGES POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "get_images" {
-  name = "${var.RESOURCE_PREFIX}-lambda-get_images-policy"
+  name = "get-images-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.get_images.id
    policy = jsonencode({
     Version = "2012-10-17"
@@ -102,7 +102,7 @@ resource "aws_iam_role_policy" "get_images" {
 # GET_ALBUMS POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "get_albums" {
-  name = "${var.RESOURCE_PREFIX}-lambda-get_albums-policy"
+  name = "get-albums-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.get_albums.id
    policy = jsonencode({
     Version = "2012-10-17"
@@ -121,7 +121,7 @@ resource "aws_iam_role_policy" "get_albums" {
 # UPDATE_ALBUM POLICY
 #--------------------------------------------------
 resource "aws_iam_role_policy" "update_album" {
-  name = "${var.RESOURCE_PREFIX}-lambda-update_album-policy"
+  name = "update-album-lambda-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.update_album.id
    policy = jsonencode({
     Version = "2012-10-17"

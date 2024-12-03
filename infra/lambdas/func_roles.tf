@@ -4,7 +4,7 @@
 # GENERATE PROMPTS ROLE 
 #----------------------------------------
 resource "aws_iam_role" "generate_prompts" {
-   name = "${var.RESOURCE_PREFIX}-lambda-generate-prompts-role"
+   name = "generate-prompts-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
@@ -25,7 +25,7 @@ resource "aws_iam_role" "generate_prompts" {
 # SEND_PROMPTS ROLE
 #----------------------------------------
 resource "aws_iam_role" "send_prompts" {
-   name = "${var.RESOURCE_PREFIX}-lambda-send_prompts-role"
+   name = "send-prompts-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
@@ -44,7 +44,7 @@ resource "aws_iam_role" "send_prompts" {
 # GET_TOKEN ROLE
 #----------------------------------------
 resource "aws_iam_role" "get_token" {
-   name = "${var.RESOURCE_PREFIX}-lambda-get_token-role"
+   name = "get-token-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
@@ -63,7 +63,7 @@ resource "aws_iam_role" "get_token" {
 # STORE_IMAGES ROLE
 #----------------------------------------
 resource "aws_iam_role" "store_images" {
-   name = "${var.RESOURCE_PREFIX}-lambda-store_images-role"
+   name = "store_images-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
@@ -82,7 +82,7 @@ resource "aws_iam_role" "store_images" {
 # GET_IMAGES ROLE
 #----------------------------------------
 resource "aws_iam_role" "get_images" {
-   name = "${var.RESOURCE_PREFIX}-lambda-get_images-role"
+   name = "get-images-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
@@ -101,7 +101,7 @@ resource "aws_iam_role" "get_images" {
 # GET_ALBUMS ROLE
 #----------------------------------------
 resource "aws_iam_role" "get_albums" {
-   name = "${var.RESOURCE_PREFIX}-lambda-get_albums-role"
+   name = "get-albums-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
@@ -120,7 +120,7 @@ resource "aws_iam_role" "get_albums" {
 # UPDATE_ALBUM ROLE
 #----------------------------------------
 resource "aws_iam_role" "update_album" {
-   name = "${var.RESOURCE_PREFIX}-lambda-update_album-role"
+   name = "update-album-lambda-role-${var.RESOURCE_PREFIX}"
    assume_role_policy = jsonencode({
      "Version" : "2012-10-17",
      "Statement" : [
