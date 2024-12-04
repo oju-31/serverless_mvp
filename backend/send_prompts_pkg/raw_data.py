@@ -100,6 +100,44 @@ closure = [
     "single-breasted", "frog closure", "loop and button", "shawl tie"
 ]
 
+enhancements = [
+    "Ultra-luxurious styling with architectural silhouette",
+    "Hyper-realistic texture and fabric rendering",
+    "Intricate design details emphasizing feminine form",
+    "Sophisticated and trendy style",
+    "Microscopic attention to textile grain and tension",
+    "Seamless fabric engineering of textile design principles",
+    "Couture-level craftsmanship with meticulous detailing",
+    "Avant-garde design elements",
+    "Expertly balanced proportions and structural harmony",
+    "masterful fabric manipulation",
+    "High-fashion editorial quality with pristine finish",
+    "Extraordinary attention to seam construction",
+    "Revolutionary pattern cutting techniques",
+    "Artisanal finishing with haute couture precision",
+    "Innovative silhouette construction methods",
+    "Exceptional fabric quality with",
+    "Supreme attention to proportional harmony",
+    "Visionary design approach with technical excellence",
+    "Pioneering design techniques with luxe finish",
+    "Exemplary material selection and execution",
+    "Refined tailoring with trendy influence",
+    "State-of-the-art fashion design methodology",
+    "Sublime craftsmanship with stylish finishing",
+    "Revolutionary garment engineering principles",
+    "Exceptional attention to dimensional accuracy",
+    "Premium fashion-forward styling elements",
+    "Sophisticated design language with modern appeal"
+]
+background = [
+    'minimalist concrete gallery with platinum',
+    'modernist glass pavilion',
+    'industrial metallic warehouse',
+    'deconstructed art gallery',
+    'soft ambient minimalist interior',
+    'parametric environment',
+    'abstract architectural void'
+    ]
 bodyShapes = ["slim", "athletic", "curvy", "petite", "plump", "robust"]
 
 # Attributes Common to Tops and Dresses
@@ -197,12 +235,12 @@ skirtParts = ["waist", "hem", "side", "front"]
 #--------------------
 baseDict = {
     "embellishments": embellishment,
-    "aesthetic": aesthetic,
+    #"aesthetic": aesthetic,
     "woman": bodyShapes,
-    "occasion": occasion,
+    #"occasion": occasion,
     "closure": closure,
     "fabric": fabric,
-    "theme": theme,
+    #"theme": theme,
     "colour": colour,
     "pattern": pattern
 }
@@ -222,8 +260,22 @@ clothConfig = {
         "style": dressStyle,
         "sleeve": sleeve
     },
+    "gown": {
+        **baseDict,
+        "length": length,
+        "neckline": neckline,
+        # "style": dressStyle,
+        "sleeve": sleeve
+    },
     
     "top": {
+        **baseDict,
+        "neckline": neckline,
+        "length": topLength,
+        "style": topStyle,
+        "sleeve": sleeve
+    },
+    "blouse": {
         **baseDict,
         "neckline": neckline,
         "length": topLength,
@@ -236,6 +288,18 @@ clothConfig = {
         "length": length,
         "waistline": trouserWaistline,
         "style": trouserStyle
+    },
+    "shorts": {
+        **baseDict,
+        "length": length,
+        "waistline": trouserWaistline,
+        "style": trouserStyle
+    },
+    "knicker": {
+        **baseDict,
+        "length": length,
+        "waistline": trouserWaistline,
+        "style": trouserStyle
     }
 }
 
@@ -243,8 +307,16 @@ clothConfig = {
 clothParts = {
     "skirt": ["waist", "hem", "side", "front"],
     "dress": ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"],
+    "gown": ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"],
     "top": ["neckline", "waist", "hem", "sleeve", "chest", "front"],
+    "blouse": ["neckline", "waist", "hem", "sleeve", "chest", "front"],
     "trousers": [
+        "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
+    ],
+    "shorts": [
+        "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
+    ],
+    "knicker": [
         "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
     ]
 }

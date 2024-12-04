@@ -3,9 +3,62 @@ import raw_data as r
 import random
 
 # because the designs were better when there certain design enhacer like
-# cut-outs, I added this function to include that in every prompts.
+# cut-outs, I added this function to include that in every prompt.
 # Cut-out on the sleeve, ruffles on the necline and stuff like that
-def featured(n_aesthetic, n_design, part, others=""):
+common_atr = ['colour', 'aesthetic', 'fabric', 'style']
+bottoms = ['skirt', 'trousers', 'shorts', 'knicker']
+sleeves = ["off-shoulder", "sleeveless", "strap", "strapless"]
+
+
+def create_clothing_prompts(descriptions, clothing_type, featured=""):
+    if "," not in featured:
+        featured = f'{clothing_type}, with {featured}'
+    prompt = 'professional fashion photography of'
+    # Add common attributes
+    for attr in common_atr:
+        if attr in descriptions:
+            prompt += f" {descriptions[attr]}"
+    # Add sleeve details for tops/dresses
+    if 'sleeve' in descriptions and descriptions['sleeve'] in sleeves:
+        prompt += f" {descriptions['sleeve']}"
+    # Initialize prompt with woman description
+    if featured:
+            prompt += f" {featured}, worn by a  {descriptions.get('woman')} woman,"
+    else:
+        prompt += f" {clothing_type}, worn by a  {descriptions.get('woman')} woman,"
+    # Add pattern
+    if 'pattern' in descriptions:
+        prompt += f" showcasing a {descriptions['pattern']} print pattern,"
+    # Add themes
+    if 'themes' in descriptions:
+        prompt += f" {descriptions['themes']} themed,"
+    if 'occasion' in descriptions:
+        prompt += f"  perfect for {descriptions['occasion']},"
+    # Add details based on clothing type
+    if 'waistline' in descriptions:
+        prompt += f" {descriptions['waistline']} waisted,"
+    if 'neckline' in descriptions:
+        prompt += f" with a {descriptions['neckline']} neckline,"
+    if 'fit' in descriptions:
+        prompt += f"  cut in a {descriptions['fit']} silhouette,"
+    if 'closure' in descriptions:
+        prompt += f"  finished with {descriptions['closure']} closure,"
+    # Add sleeve details for non-special sleeve types
+    if 'sleeve' in descriptions and descriptions['sleeve'] not in sleeves:
+        prompt += f"  detailed with  {descriptions['sleeve']} sleeves,"
+    if 'embellishments' in descriptions:
+        prompt += f" dress is elegantly adorned with {descriptions['embellishments']}."
+    # Select two random unique enhancements
+    se = random.sample(r.enhancements, 2)
+    prompt += f" the dress has {se[0]} and {se[1]},"
+    # Add final quality specifications
+    prompt += f" background of {random.choice(r.background)}"
+    prompt += " highly detailed, professional photography, 8k resolution, product showcase. \n"
+
+    return prompt
+
+
+def featured(n_aesthetic, n_design, part, others=''):
     if n_aesthetic < 0 or n_aesthetic > len(r.aesthetic):
         mssg = "Invalid value for n_aesthetic.\
         It should be between 0 and the length of the aesthetic list."
@@ -18,7 +71,7 @@ def featured(n_aesthetic, n_design, part, others=""):
 
     words_aesthetic = random.sample(r.aesthetic, n_aesthetic)
     words_design = random.sample(r.aestheticDesign, n_design)
-    words_part = random.choice(r.part)
+    words_part = random.choice(part)
 
     if len(words_aesthetic) > 1:
         joined_aesthetic = " and ".join(words_aesthetic)
@@ -32,7 +85,7 @@ def featured(n_aesthetic, n_design, part, others=""):
 
     description = f"{joined_aesthetic} {joined_design} design on the {words_part}"
     if others:
-        return f"{others}, {description}"
+        return f"{others}, with {description}"
     else:
         return description
 
@@ -148,62 +201,46 @@ def createOutfitPrompts(top, skirt, up, down):
 
     return prompt
 
-
-def create_clothing_prompts(descriptions, clothing_type, featured=""):
-    sleeves = ["off-shoulder", "sleeveless", "strap", "strapless"]
-    
-    # Initialize prompt with woman description
-    if 'woman' in descriptions:
-        prompt = f"{featured}, a {descriptions['woman']} woman wearing a"
-    else:
-        prompt = f"{featured}, a woman wearing a"
-
-    # Add color
-    if 'colour' in descriptions:
-        prompt += f" {descriptions['colour']}"
-        if clothing_type not in ['skirt', 'trousers']:
-            prompt += ","
-
-    # Add pattern for skirts and trousers
-    if 'pattern' in descriptions and clothing_type in ['skirt', 'trousers']:
-        prompt += f" {descriptions['pattern']} print"
-
-    # Add sleeve details for tops/dresses
-    if clothing_type in ['dress', 'top', 'blouse'] and 'sleeve' in descriptions and descriptions['sleeve'] in sleeves:
-        prompt += f" {descriptions['sleeve']}"
-
+def create_clothing_prompts2(descriptions, clothing_type, featured=""):
+    if "," not in featured:
+        featured = f'{clothing_type}, with {featured}'
+    prompt = 'image of'
     # Add common attributes
-    for attr in ['length', 'fabric', 'occasion', 'style']:
+    for attr in common_atr:
         if attr in descriptions:
             prompt += f" {descriptions[attr]}"
-
-    # Add clothing type
-    prompt += f" {clothing_type},"
-
+    # Add sleeve details for tops/dresses
+    if 'sleeve' in descriptions and descriptions['sleeve'] in sleeves:
+        prompt += f" {descriptions['sleeve']}"
+    # Initialize prompt with woman description
+    if featured:
+            prompt += f" {featured}, worn by a  {descriptions.get('woman')} woman,"
+    else:
+        prompt += f" {clothing_type}, worn by a  {descriptions.get('woman')} woman,"
+    # Add pattern
+    if 'pattern' in descriptions:
+        prompt += f" {descriptions['pattern']} print pattern,"
     # Add themes
     if 'themes' in descriptions:
-        prompt += f" {descriptions['themes']} theme,"
-
+        prompt += f" {descriptions['themes']} themed,"
+    if 'occasion' in descriptions:
+        prompt += f" perfect for {descriptions['occasion']},"
     # Add details based on clothing type
-    if clothing_type in ['skirt', 'trousers'] and 'waistline' in descriptions:
+    if 'waistline' in descriptions:
         prompt += f" {descriptions['waistline']} waisted,"
-
-    if 'neckline' in descriptions and clothing_type not in ['skirt', 'trousers']:
-        prompt += f" {descriptions['neckline']} neckline,"
-
+    if 'neckline' in descriptions:
+        prompt += f" with a {descriptions['neckline']} neckline,"
     if 'fit' in descriptions:
-        prompt += f" {descriptions['fit']} fit,"
-
+        prompt += f"  cut in a {descriptions['fit']} silhouette,"
     if 'closure' in descriptions:
         prompt += f" {descriptions['closure']} closure,"
-
     # Add sleeve details for non-special sleeve types
-    if clothing_type in ['dress', 'top', 'blouse'] and 'sleeve' in descriptions and descriptions['sleeve'] not in sleeves:
-        prompt += f" {descriptions['sleeve']} sleeves,"
-
+    if 'sleeve' in descriptions and descriptions['sleeve'] not in sleeves:
+        prompt += f"  {descriptions['sleeve']} sleeves,"
     if 'embellishments' in descriptions:
-        prompt += f" {descriptions['embellishments']},"
-
-    prompt += f" high fashion, haute couture, lifelike \n\n"
+        prompt += f" adorned with {descriptions['embellishments']}."
+    # Add background
+    prompt += f" background of {random.choice(r.background)},"
+    prompt += f" {clothing_type} is stylish and sophisticated. \n"
 
     return prompt

@@ -1,16 +1,15 @@
 import boto3
 import logging
 import create_prompts as c
-import random
 from raw_data import clothConfig, clothParts
 from os import getenv
 from botocore.exceptions import BotoCoreError, ClientError
 from vldt_send_prompts import validate_event
 
-POOL_ID = getenv('ENV')
-CLIENT_ID = getenv('ENV')
-cognito_client = boto3.client('cognito-idp')
-table_name = getenv('ENV')
+# POOL_ID = getenv('ENV')
+# CLIENT_ID = getenv('ENV')
+# cognito_client = boto3.client('cognito-idp')
+# table_name = getenv('ENV')
 # db = boto3.resource("dynamodb")
 # table = db.Table(table_name)
 clothes = {}
@@ -26,10 +25,8 @@ def lambda_handler(event, context):
     status_code = 400
     logger.info(event)
     resp = {
-        "error": True,
-        "success": False,
-        "message": "server error",
-        "data": None
+        "status": 'Error',
+        "message": "server error"
     }
 
     try:
@@ -43,24 +40,28 @@ def lambda_handler(event, context):
         num = 1
         for i in cloth:
             features = c.featured(1, 1, clothParts[cloth_type], main_feat)
-            prompt = c.create_clothing_prompts(i, features)
+            prompt = c.create_clothing_prompts2(i, cloth_type, features)
             all_prompts += f"{num}. "
             all_prompts += prompt
             num += 1
-
         print(all_prompts)
+        resp = {
+            "status": 'Success',
+            "message": "Prompts generated successfully"
+        }
     except ValueError as e:
         logger.error(e)
         resp["message"] = f"A validation error occurred: {str(e)}"
     except (BotoCoreError, ClientError) as e:
         logger.error(e)
-        response_string = str(e).split(":", 1)[-1].strip()
-        resp["message"] = f"An AWS error occurred: {response_string}"
+        resp_string = str(e).split(":", 1)[-1].strip()
+        resp["message"] = f"An AWS error occurred: {resp_string}"
     except Exception as e:
         status_code = 500
         logger.error(e)
         resp["message"] = str(e)
 
+    # return make_response(status_code, resp)
     return make_response(status_code, resp)
 
 def make_response(status, message, log=True):
@@ -71,3 +72,12 @@ def make_response(status, message, log=True):
         "body": message
     }
 
+test_event = {
+  "body":{
+    "clothType": "dress",
+    "numPrompts": 5,
+    "numExtFeatures": 4
+    # "mainFeature": "black and yellow"
+  }
+}
+lambda_handler(test_event, None)
