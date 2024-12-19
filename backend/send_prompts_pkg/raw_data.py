@@ -58,11 +58,13 @@ colour = [
 pattern = [
     "herringbone", "colour-block", "batik", "pinstripe", "houndstooth", "floral"
     "moroccan", "medallion", "chevron", "paisley", "harlequin", "checkerboard",
-    "windowpane", "leopard", "tiger", "zebra", "snake", "giraffe", "cow",
+    "windowpane",
     "tartan", "ombre", "tie-dye", "dip-dye", "art deco", "mosaic", "geometric",
     "abstract", "argyle", "monochrome", "gradient",
 ]
 
+# removed prints
+ # "leopard", "tiger", "zebra", "snake", "giraffe", "cow",
 fabric = [
     "Polyester", "Silk", "Velvet", "Rayon", "Taffeta", "Tweed", "Wool",
     "Organza", "Georgette", "Brocade", "Crepe", "jersey","Flannel",
@@ -130,13 +132,17 @@ enhancements = [
     "Sophisticated design language with modern appeal"
 ]
 background = [
-    'minimalist concrete gallery with platinum',
+    'minimalist concrete gallery',
     'modernist glass pavilion',
     'industrial metallic warehouse',
     'deconstructed art gallery',
     'soft ambient minimalist interior',
     'parametric environment',
-    'abstract architectural void'
+    'abstract architectural void',
+    'modern loft space',
+    'monochromatic living room',
+    'zen meditation room',
+    'minimal architectural space'
     ]
 bodyShapes = ["slim", "athletic", "curvy", "petite", "plump", "robust"]
 
@@ -256,31 +262,31 @@ clothConfig = {
     "dress": {
         **baseDict,
         "length": length,
-        "neckline": neckline,
-        "style": dressStyle,
-        "sleeve": sleeve
+        # "neckline": neckline,
+        # "style": dressStyle,
+        # "sleeve": sleeve
     },
     "gown": {
         **baseDict,
         "length": length,
         "neckline": neckline,
         # "style": dressStyle,
-        "sleeve": sleeve
+        # "sleeve": sleeve
     },
     
     "top": {
         **baseDict,
-        "neckline": neckline,
+        # "neckline": neckline,
         "length": topLength,
-        "style": topStyle,
-        "sleeve": sleeve
+        # "style": topStyle,
+        # "sleeve": sleeve
     },
     "blouse": {
         **baseDict,
         "neckline": neckline,
         "length": topLength,
-        "style": topStyle,
-        "sleeve": sleeve
+        # "style": topStyle,
+        # "sleeve": sleeve
     },
     
     "trousers": {

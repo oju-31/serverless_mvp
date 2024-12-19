@@ -4,8 +4,19 @@ req_params = ['clothType', 'numPrompts', 'numExtFeatures']
 
 def validate_event(event):
     # Check if event is a dictionary and contains a 'body'
-    if not isinstance(event, dict) or 'body' not in event:
-        raise ValueError("Event must be a JSON object containing a 'body'")
+    if not isinstance(event, dict) or 'body' not in event or 'headers' not in event:
+        raise ValueError("Event must be a JSON object containing a 'body' and 'headers")
+    # Get cookies from headers
+    cookies = event['headers'].get('Cookie', '')
+    # Parse cookies to get id_token
+    cookie_dict = {}
+    for cookie in cookies.split('; '):
+        if '=' in cookie:
+            key, value = cookie.split('=', 1)
+            cookie_dict[key] = value
+    access_token = cookie_dict.get('id_token')
+    if not access_token:
+        raise ValueError("Unauthorized")
     body = event["body"]
     # Check if body is a dictionary
     if not isinstance(body, dict):
@@ -39,8 +50,7 @@ def validate_event(event):
     
     # body['mainFeature'] = f'{main_feature} {cloth_type}'
     
-    return body
-
+    return body, access_token
 # # Split mainFeature into words
 #     words = mainFeature.split()
     

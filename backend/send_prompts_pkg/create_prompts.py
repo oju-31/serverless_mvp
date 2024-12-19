@@ -11,9 +11,8 @@ sleeves = ["off-shoulder", "sleeveless", "strap", "strapless"]
 
 
 def create_clothing_prompts(descriptions, clothing_type, featured=""):
-    if "," not in featured:
-        featured = f'{clothing_type}, with {featured}'
-    prompt = 'professional fashion photography of'
+    
+    prompt = 'fashion photography of a stylish and sophisticated'
     # Add common attributes
     for attr in common_atr:
         if attr in descriptions:
@@ -21,9 +20,13 @@ def create_clothing_prompts(descriptions, clothing_type, featured=""):
     # Add sleeve details for tops/dresses
     if 'sleeve' in descriptions and descriptions['sleeve'] in sleeves:
         prompt += f" {descriptions['sleeve']}"
-    # Initialize prompt with woman description
     if featured:
-            prompt += f" {featured}, worn by a  {descriptions.get('woman')} woman,"
+        if "," in featured:
+            parts = featured.split(",", 1)
+            featured = f"{parts[0]} {clothing_type},{parts[1]}"
+        else:
+            featured = f'{clothing_type}, with {featured}'
+        prompt += f" {featured}, worn by a  {descriptions.get('woman')} woman,"
     else:
         prompt += f" {clothing_type}, worn by a  {descriptions.get('woman')} woman,"
     # Add pattern
@@ -53,7 +56,7 @@ def create_clothing_prompts(descriptions, clothing_type, featured=""):
     prompt += f" the dress has {se[0]} and {se[1]},"
     # Add final quality specifications
     prompt += f" background of {random.choice(r.background)}"
-    prompt += " highly detailed, professional photography, 8k resolution, product showcase. \n"
+    prompt += " highly detailed, professional photography, product showcase. \n"
 
     return prompt
 
@@ -204,7 +207,7 @@ def createOutfitPrompts(top, skirt, up, down):
 def create_clothing_prompts2(descriptions, clothing_type, featured=""):
     if "," not in featured:
         featured = f'{clothing_type}, with {featured}'
-    prompt = 'image of'
+    prompt = 'image of a stylish'
     # Add common attributes
     for attr in common_atr:
         if attr in descriptions:
