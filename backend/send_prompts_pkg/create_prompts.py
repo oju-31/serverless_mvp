@@ -12,7 +12,7 @@ sleeves = ["off-shoulder", "sleeveless", "strap", "strapless"]
 
 def create_clothing_prompts(descriptions, clothing_type, featured=""):
     
-    prompt = 'fashion photography of a stylish and sophisticated'
+    prompt = 'a stylish and sophisticated'
     # Add common attributes
     for attr in common_atr:
         if attr in descriptions:
@@ -33,8 +33,8 @@ def create_clothing_prompts(descriptions, clothing_type, featured=""):
     if 'pattern' in descriptions:
         prompt += f" showcasing a {descriptions['pattern']} print pattern,"
     # Add themes
-    if 'themes' in descriptions:
-        prompt += f" {descriptions['themes']} themed,"
+    if 'theme' in descriptions:
+        prompt += f" {descriptions['theme']} themed,"
     if 'occasion' in descriptions:
         prompt += f"  perfect for {descriptions['occasion']},"
     # Add details based on clothing type
@@ -50,12 +50,12 @@ def create_clothing_prompts(descriptions, clothing_type, featured=""):
     if 'sleeve' in descriptions and descriptions['sleeve'] not in sleeves:
         prompt += f"  detailed with  {descriptions['sleeve']} sleeves,"
     if 'embellishments' in descriptions:
-        prompt += f" dress is elegantly adorned with {descriptions['embellishments']}."
+        prompt += f" {clothing_type} is elegantly adorned with {descriptions['embellishments']}."
     # Select two random unique enhancements
     se = random.sample(r.enhancements, 2)
-    prompt += f" the dress has {se[0]} and {se[1]},"
+    prompt += f" the {clothing_type} has {se[0]} and {se[1]},"
     # Add final quality specifications
-    prompt += f" background of {random.choice(r.background)}"
+    prompt += f" background of {random.choice(r.background)},"
     prompt += " highly detailed, professional photography, product showcase. \n"
 
     return prompt
@@ -105,6 +105,10 @@ def selectFeatures(attr_dic, num_attr, num_output,features={}):
         # Ensure that "body_shape" is one of the selected keys
         if "woman" not in selected_keys:
             selected_keys.append("woman")
+        # Ensure that "colour" is one of the selected keys
+        # remove if this function will be used for colour combination outfits
+        # if "colour" not in selected_keys:
+        #     selected_keys.append("colour")
 
         # Randomly pick one element from each list of the selected keys
         selected_values = {

@@ -95,13 +95,3 @@ def make_response(status, message, log=True):
         "statusCode": status,
         "body": message
     }
-
-test_event = {
-  "body":{
-    "clothType": "shorts",
-    "numPrompts": 5,
-    "numExtFeatures": 4,
-    "mainFeature": "black and white"
-  }
-}
-lambda_handler(test_event, None)

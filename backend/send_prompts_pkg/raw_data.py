@@ -1,23 +1,25 @@
 # Attributes Common to All Clothes
+# bad for jacket: rosettes, fishtail
 embellishment = [
     "Sequins", "beads", "crystals", "pearls", "feathers", "studs","rhinestones",
     "lace trim", "embroidery", "appliques", "tassels", "fringes",
     "crochet details", "flounces","rosettes", "brooches", "ribbon", "sashes", 
     "tiers", "pockets", "paneling", "piping", "quilting",
     "draping", "fishtail", "fluted hem", "high-low hem",
-    "ruching", "shirring", "laser-cut detailing"
+    "ruching", "shirring", "laser-cut detailing", "fur"
 ]
 aesthetic = [
     "elegant", "chic", "stylish", "refined", "polished", "tasteful",
     "fashionable", "trendy", "modern", "sleek", "upscale",
     "luxurious", "high-end","glamorous", "classic", "exquisite", "sumptuous",
-    "opulent", "artistic", "sophisticated","posh"
+    "opulent", "artistic", "sophisticated","posh", "majestic", "timeless"
 ]
 
+# bad for jacket: pleated
 aestheticDesign = [
-    "ruffles", "cut-outs", "pintucks", "patched", "belt loops",
-    "mesh inserts", "pleated", "layered", "buckle",
-    "asymetrical", "draping", "symetrical", "geometric", "fine"
+    "ruffles", "cut-outs", "pintucks", "patched", "loops",
+    "mesh inserts", "pleated", "layered", "buckle", "asymmetrical cut pattern",
+    "asymmetrical", "draping", "symmetrical", "geometric", "fine"
 ]
 
 occasion = [
@@ -66,14 +68,14 @@ pattern = [
 # removed prints
  # "leopard", "tiger", "zebra", "snake", "giraffe", "cow",
 fabric = [
-    "Polyester", "Silk", "Velvet", "Rayon", "Taffeta", "Tweed", "Wool",
+    "polyester", "silk", "velvet", "rayon", "taffeta", "tweed", "wool",
     "Organza", "Georgette", "Brocade", "Crepe", "jersey","Flannel",
     "Herringbone", "twill", "Gabardine", "leather", "Suede",
     "Linen","Bamboo", "Tulle", "Mesh", "Fleece", "Neoprene",
-    "Spandex", "Viscose", "Modal", "Lyocell", "Acrylic", "corduroy",
-    "Denim", "Shantung", "Crushed velvet", "Velour", "Lace", "Eyelet",
+    "Spandex", "Viscose", "Modal", "lyocell", "Acrylic", "corduroy",
+    "denim", "Shantung", "Crushed velvet", "Velour", "Lace", "Eyelet",
     "Chiffon", "Gingham", "Seersucker", "Houndstooth", "Pinstripe", "Jacquard",
-    "Damask", "Quilted", "Moire", "Batik", "Ikat", "Paisley", "Fishnet",
+    "damask", "Quilted", "Moire", "Batik", "Ikat", "Paisley", "Fishnet",
     "toile", "chino", "khaki"
 ]
 
@@ -94,6 +96,7 @@ fit = [
 
 tone = ["multicolor", "neon", "jewel tone", "earth tone", "pastel"]
 
+# bad for jacket: shawl tie,
 closure = [
     "front zipper", "back zipper", "side zipper", "invisible zipper",
     "button-up", "snap buttons", "hook-and-eye closure", "lace-up",
@@ -103,45 +106,45 @@ closure = [
 ]
 
 enhancements = [
-    "Ultra-luxurious styling with architectural silhouette",
-    "Hyper-realistic texture and fabric rendering",
-    "Intricate design details emphasizing feminine form",
-    "Sophisticated and trendy style",
-    "Microscopic attention to textile grain and tension",
-    "Seamless fabric engineering of textile design principles",
-    "Couture-level craftsmanship with meticulous detailing",
-    "Avant-garde design elements",
-    "Expertly balanced proportions and structural harmony",
+    "ultra-luxurious styling",
+    "hyper-realistic fabric rendering",
+    "intricate design details emphasizing feminine form",
+    "sophisticated and trendy style",
+    "microscopic attention to textile tension",
+    "seamless fabric engineering",
+    "couture-level craftsmanship",
+    "avant-garde design elements",
+    "expertly balanced structural harmony",
     "masterful fabric manipulation",
-    "High-fashion editorial quality with pristine finish",
-    "Extraordinary attention to seam construction",
-    "Revolutionary pattern cutting techniques",
-    "Artisanal finishing with haute couture precision",
-    "Innovative silhouette construction methods",
-    "Exceptional fabric quality with",
-    "Supreme attention to proportional harmony",
-    "Visionary design approach with technical excellence",
-    "Pioneering design techniques with luxe finish",
-    "Exemplary material selection and execution",
-    "Refined tailoring with trendy influence",
-    "State-of-the-art fashion design methodology",
-    "Sublime craftsmanship with stylish finishing",
-    "Revolutionary garment engineering principles",
-    "Exceptional attention to dimensional accuracy",
-    "Premium fashion-forward styling elements",
-    "Sophisticated design language with modern appeal"
+    "high-fashion editorial quality",
+    "extraordinary attention to seam construction",
+    "revolutionary pattern cutting techniques",
+    "artisanal finishing with precision",
+    "innovative silhouette construction methods",
+    "exceptional fabric quality",
+    "supreme attention to proportional harmony",
+    "visionary design approach",
+    "pioneering design techniques with luxe finish",
+    "exemplary material execution",
+    "refined tailoring with trendy influence",
+    "state-of-the-art fashion design methodology",
+    "sublime craftsmanship with stylish finishing",
+    "revolutionary garment engineering principles",
+    "exceptional attention to dimensional accuracy",
+    "premium fashion-forward styling elements",
+    "sophisticated design language with modern appeal"
 ]
 background = [
     'minimalist concrete gallery',
     'modernist glass pavilion',
     'industrial metallic warehouse',
-    'deconstructed art gallery',
+    # 'deconstructed art gallery',
     'soft ambient minimalist interior',
     'parametric environment',
     'abstract architectural void',
     'modern loft space',
-    'monochromatic living room',
-    'zen meditation room',
+    'modern living room',
+    'tranquil meditation interior',
     'minimal architectural space'
     ]
 bodyShapes = ["slim", "athletic", "curvy", "petite", "plump", "robust"]
@@ -170,7 +173,7 @@ neckline = [
 # what is this?
 design = [
     "asymmetrical hem", "asymmetrical necklinne", "asymmetrical waistline",
-    "cut-out", "symmetrical", "patchwork", "slit",
+    "cut-out", "symmetrical", "patchwork", "slit",  "asymmetrical design pattern"
 ]
 
 # Attributes Common to Skirts and Dresses
@@ -213,6 +216,8 @@ topLength = ["normal", "crop", "hip-length"]
 topParts = ["neckline", "waist", "hem", "sleeve", "chest", "front"]
 
 # Trousers Atrributes only
+# if shorts, no length
+# if cargo or track, no fabric
 trouserLength = ["capri", "full-length", "ankle-length"]
 trouserTypes = ["trouser", "short", "knicker"]
 trouserParts = [
@@ -223,14 +228,28 @@ trouserStyle = [
     "palazzo", "cargo", "track", "gaucho", "bootcut", "skinny", "straight",
     "wide", "flare", "culottes"
 ]
-# if shorts, no length
-# if cargo or track, no fabric
+trousers = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    # "occasion": occasion,
+    "closure": closure,
+    # "fabric": fabric,
+    #"theme": theme,
+    # "colour": colour,
+    # "pattern": pattern,
+    "length": length,
+    "waistline": trouserWaistline,
+    "style": trouserStyle
+    }
 
 # Skirts Atrributes Only
 skirtWaistline = ["drop", "low", "high", "empire", "natural", ]
+
+# removed: "gypsy", "ruffled", fishtail
 skirtStyle = [
     "a-line ", "pencil ", "pleated ", "tutu", "wrap", "sunray",
-    "tulle", "flared", "gypsy", "ruffled", "tiered", "trumpet",
+    "tulle", "flared", "tiered", "trumpet",
     "mermaid", "sarong", "skater", "fishtail", "peplum", "bias-cut", "godet",
     "dirndl", "knitted"
 ]
@@ -243,7 +262,7 @@ baseDict = {
     "embellishments": embellishment,
     #"aesthetic": aesthetic,
     "woman": bodyShapes,
-    #"occasion": occasion,
+    # "occasion": occasion,
     "closure": closure,
     "fabric": fabric,
     #"theme": theme,
@@ -251,14 +270,55 @@ baseDict = {
     "pattern": pattern
 }
 
+skirt = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    "occasion": occasion,
+    "closure": closure,
+    # "fabric": fabric,
+    # "theme": theme,
+    # "colour": colour,
+    # "pattern": pattern,
+    "length": length,
+    # "waistline": skirtWaistline,
+    "style": skirtStyle
+}
+# combination one of (style, sleeves, neckline) with one of (ocassion, theme, fabric) at a time
+top = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    # "occasion": occasion,
+    "closure": closure,
+    "fabric": fabric,
+    "theme": theme,
+    "colour": colour,
+    # "pattern": pattern,
+    # "neckline": neckline,
+    # "length": topLength,
+    # "style": topStyle,
+    # "sleeve": sleeve
+}
+
+jacket = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    # "occasion": occasion,
+    "closure": closure,
+    # "fabric": fabric,
+    "theme": theme,
+    "colour": colour,
+    "pattern": pattern,
+    # "neckline": neckline,
+    # "length": topLength,
+    # "style": topStyle,
+    # "sleeve": sleeve
+}
+
 clothConfig = {
-    "skirt": {
-        **baseDict,
-        "length": length,
-        "waistline": skirtWaistline,
-        "style": skirtStyle
-    },
-    
+    "skirt": skirt,
     "dress": {
         **baseDict,
         "length": length,
@@ -274,26 +334,15 @@ clothConfig = {
         # "sleeve": sleeve
     },
     
-    "top": {
-        **baseDict,
-        # "neckline": neckline,
-        "length": topLength,
-        # "style": topStyle,
-        # "sleeve": sleeve
-    },
+    "top": top,
+    "jacket": jacket,
+    "trousers": trousers,
     "blouse": {
         **baseDict,
         "neckline": neckline,
         "length": topLength,
         # "style": topStyle,
         # "sleeve": sleeve
-    },
-    
-    "trousers": {
-        **baseDict,
-        "length": length,
-        "waistline": trouserWaistline,
-        "style": trouserStyle
     },
     "shorts": {
         **baseDict,
@@ -315,6 +364,7 @@ clothParts = {
     "dress": ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"],
     "gown": ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"],
     "top": ["neckline", "waist", "hem", "sleeve", "chest", "front"],
+    "jacket": ["waist", "hem", "sleeve", "chest", "front"],
     "blouse": ["neckline", "waist", "hem", "sleeve", "chest", "front"],
     "trousers": [
         "waist", "fly", "inseam", "outseam", "hem", "legs", "belt loops", "pockets"
@@ -333,3 +383,6 @@ clothParts = {
 # dressDict = CLOTHING_CONFIGS["dress"] 
 # topDict = CLOTHING_CONFIGS["top"]
 # trouserDict = CLOTHING_CONFIGS["trousers"]
+
+# GOOD COMBOS
+# 1) aestheticDesign: buckles + theme: streetwear
