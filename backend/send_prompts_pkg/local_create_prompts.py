@@ -27,7 +27,7 @@ def lambda_handler(event, context):
         main_feat = payload.get("mainFeature", '')
         
         cloth = c.selectFeatures(clothConfig[cloth_type], num_feat, num_prompts)
-        # print(cloth)
+        print(cloth)
         all_prompts = ""
         num = 1
         for i in cloth:
@@ -62,10 +62,10 @@ def make_response(status, message, log=True):
 
 test_event = {
   "body":{
-    "clothType": "trousers",
+    "clothType": "dress",
     "numPrompts": 5,
     "numExtFeatures": 4,
-    "mainFeature": "brown"
+    "mainFeature": "silk"
   }
 }
 lambda_handler(test_event, None)

@@ -202,6 +202,21 @@ dressFit = [
     "sheath", "columnar", "contoured"
 ]
 dressParts = ["neckline", "waist", "abdomen", "pelvic", "hem", "sleeve", "chest"]
+dress = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    "occasion": occasion,
+    "closure": closure,
+    # "fabric": fabric,
+    #"theme": theme,
+    "colour": colour,
+    # "pattern": pattern,
+    "length": length,
+    "neckline": neckline,
+    # "style": dressStyle,
+    # "sleeve": sleeve
+    }
 
 # Tops Atrributes only
 topStyle = [
@@ -214,6 +229,37 @@ topStyle = [
 ]
 topLength = ["normal", "crop", "hip-length"]
 topParts = ["neckline", "waist", "hem", "sleeve", "chest", "front"]
+top = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    # "occasion": occasion,
+    "closure": closure,
+    "fabric": fabric,
+    "theme": theme,
+    "colour": colour,
+    # "pattern": pattern,
+    # "neckline": neckline,
+    # "length": topLength,
+    # "style": topStyle,
+    # "sleeve": sleeve
+}
+
+jacket = {
+    "embellishments": embellishment,
+    #"aesthetic": aesthetic,
+    "woman": bodyShapes,
+    # "occasion": occasion,
+    "closure": closure,
+    # "fabric": fabric,
+    "theme": theme,
+    "colour": colour,
+    "pattern": pattern,
+    # "neckline": neckline,
+    # "length": topLength,
+    # "style": topStyle,
+    # "sleeve": sleeve
+}
 
 # Trousers Atrributes only
 # if shorts, no length
@@ -285,47 +331,8 @@ skirt = {
     "style": skirtStyle
 }
 # combination one of (style, sleeves, neckline) with one of (ocassion, theme, fabric) at a time
-top = {
-    "embellishments": embellishment,
-    #"aesthetic": aesthetic,
-    "woman": bodyShapes,
-    # "occasion": occasion,
-    "closure": closure,
-    "fabric": fabric,
-    "theme": theme,
-    "colour": colour,
-    # "pattern": pattern,
-    # "neckline": neckline,
-    # "length": topLength,
-    # "style": topStyle,
-    # "sleeve": sleeve
-}
-
-jacket = {
-    "embellishments": embellishment,
-    #"aesthetic": aesthetic,
-    "woman": bodyShapes,
-    # "occasion": occasion,
-    "closure": closure,
-    # "fabric": fabric,
-    "theme": theme,
-    "colour": colour,
-    "pattern": pattern,
-    # "neckline": neckline,
-    # "length": topLength,
-    # "style": topStyle,
-    # "sleeve": sleeve
-}
 
 clothConfig = {
-    "skirt": skirt,
-    "dress": {
-        **baseDict,
-        "length": length,
-        # "neckline": neckline,
-        # "style": dressStyle,
-        # "sleeve": sleeve
-    },
     "gown": {
         **baseDict,
         "length": length,
@@ -336,6 +343,8 @@ clothConfig = {
     
     "top": top,
     "jacket": jacket,
+    "dress": dress,
+    "skirt": skirt,
     "trousers": trousers,
     "blouse": {
         **baseDict,
