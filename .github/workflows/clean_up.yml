@@ -10,20 +10,20 @@ jobs:
     name: 'Post Apply Cleanup'
     runs-on: ubuntu-latest
 
-#     env:
-#       AWS_REGION: 'us-east-1'
-#       TF_VERSION: '1.4.0'
+    env:
+      AWS_REGION: 'us-east-1'
+      TF_VERSION: '1.4.0'
 
-#     steps:
-#     - name: 'Checkout GitHub repository'
-#       uses: actions/checkout@v2
+    steps:
+    - name: 'Checkout GitHub repository'
+      uses: actions/checkout@v2
 
-#     - name: 'Configure AWS credentials'
-#       uses: aws-actions/configure-aws-credentials@v4
-#       with:
-#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
-#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
-#         aws-region: ${{ env.AWS_REGION }}
+    - name: 'Configure AWS credentials'
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+        aws-region: ${{ env.AWS_REGION }}
 
 #     - name: 'Set up Terraform'
 #       uses: hashicorp/setup-terraform@v3
