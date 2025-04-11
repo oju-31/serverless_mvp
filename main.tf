@@ -102,7 +102,7 @@ resource "aws_dynamodb_table" "image_table" {
 # S3 bucket 
 
 resource "aws_s3_bucket" "ahlorq_frontend" {
-  bucket = local.RESOURCE_PREFIX
+  bucket =  "${local.RESOURCE_PREFIX}s"
   tags   = merge(local.COMMON_TAGS, tomap({"ResourceType" = "STORAGE"}))
 }
 
