@@ -224,4 +224,3 @@ resource "aws_cloudfront_distribution" "website_cdn" {
     }
   }
 }
-

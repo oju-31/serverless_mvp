@@ -34,7 +34,7 @@ locals {
   FRONTEND_FILES = fileset("${path.root}/frontend", "**")
   PYTHON_VERSION = "python3.12"
   LAMBDA_VERSION = "v1"
-  HOME_PAGE          = "https://${module.static.CLOUDFRONT_DOMAIN_NAME}"
+#   HOME_PAGE          = "https://${module.static.CLOUDFRONT_DOMAIN_NAME}"
   # cognito_domain_name = "auth.${var.WEBAPP_DNS}"
   COMMON_TAGS          = { 
     Environment = var.ENV 
