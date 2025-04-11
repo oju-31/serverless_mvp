@@ -6,7 +6,7 @@ import logging
 import base64
 from os import getenv
 from vldt_get_token import validate_event
-
+# this code is supposed to be in a utility file
 client_id =  getenv('COGNITO_CLIENT_ID')
 client_secret =  getenv('COGNITO_CLIENT_SECRET')
 redirect_uri =  getenv('HOME_PAGE')
