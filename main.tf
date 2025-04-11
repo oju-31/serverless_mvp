@@ -262,6 +262,4 @@ resource "aws_cognito_user_pool_client" "ahlorq_ui" {
     "ALLOW_CUSTOM_AUTH",
     "ALLOW_ADMIN_USER_PASSWORD_AUTH"
   ]
-
-  prevent_user_existence_errors = true
 }
