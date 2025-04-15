@@ -1,4 +1,4 @@
-import { config } from './config.js';
+import { configa } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const page = document.body.dataset.page;
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       try {
-        const response = await fetch(config.lambdaUrl, {
+        const response = await fetch(configa.lambdaUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
