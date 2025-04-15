@@ -1,6 +1,5 @@
 import { config } from './config.js';
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const page = document.body.dataset.page;
   
