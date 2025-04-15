@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       default:
         console.warn(`No auth logic defined for page: ${page}`);
     }
-  });  
+  });
 
   function initSignup() {
     const form = document.querySelector('.signup-form');
