@@ -30,6 +30,15 @@ resource "aws_lambda_function" "ahlorq_styles" {
 resource "aws_lambda_function_url" "ahlorq_styles" {
   function_name      = aws_lambda_function.ahlorq_styles.function_name
   authorization_type = "NONE"
+
+  cors {
+    allow_credentials = true
+    allow_origins     = ["*"] # update to cloudfront domain
+    allow_methods     = ["*"]
+    allow_headers     = ["date", "keep-alive"]
+    expose_headers    = ["keep-alive", "date"]
+    max_age           = 86400
+  }
 }
 
 resource "aws_iam_role" "ahlorq_styles" {
