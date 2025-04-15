@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       try {
-        const response = await fetch(window.API_URL, {
+        const response = await fetch('https://i4otrcsddqhqiuhddlgq6e7lrm0arlol.lambda-url.us-east-1.on.aws/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
