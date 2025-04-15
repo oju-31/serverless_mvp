@@ -1,4 +1,3 @@
-import API_URL from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const page = document.body.dataset.page;
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(window.API_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
