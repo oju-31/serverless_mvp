@@ -1,3 +1,6 @@
+import { config } from './config.js';
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const page = document.body.dataset.page;
   
@@ -41,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       try {
-        const response = await fetch('https://qs7xctr222bgnguubhtqyakenu0imgaa.lambda-url.us-east-1.on.aws/', {
+        const response = await fetch(config.lambdaUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

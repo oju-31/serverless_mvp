@@ -35,7 +35,7 @@ resource "aws_lambda_function_url" "ahlorq_styles" {
     allow_credentials = true
     allow_origins     = ["*"] # update to cloudfront domain
     allow_methods     = ["*"]
-    allow_headers     = ["date", "keep-alive"]
+    allow_headers     = ["date", "keep-alive", "content-type"]
     expose_headers    = ["keep-alive", "date"]
     max_age           = 86400
   }
