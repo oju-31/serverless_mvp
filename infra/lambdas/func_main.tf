@@ -115,7 +115,7 @@ resource "aws_lambda_function_url" "style_generations" {
 resource "aws_lambda_function" "user_mngt" {
   filename         = "${path.root}/src/zip/user_mngt.zip"
   function_name    = "user_mngt-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
-  role             = "${aws_iam_role.core.arn}"
+  role             = "${aws_iam_role.user_mngt.arn}"
   handler          = "auth.lambda_handler"
   source_code_hash = data.archive_file.user_mngt.output_base64sha256
   runtime          = local.PYTHON_VERSION
