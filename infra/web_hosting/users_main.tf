@@ -31,6 +31,8 @@ resource "aws_cognito_user_pool_client" "ahlorq_ui" {
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows = ["code", "implicit"]
   allowed_oauth_scopes = ["openid", "email", "profile"]
+  callback_urls = [var.WEBAPP_DNS] # change this two
+  logout_urls   = [var.WEBAPP_DNS]
   supported_identity_providers = ["COGNITO"]
   explicit_auth_flows = [
     "ALLOW_USER_PASSWORD_AUTH",
@@ -45,7 +47,7 @@ resource "aws_cognito_user_pool_client" "ahlorq_ui" {
 # S3 BUCKET FOR FRONTEND
 #----------------------------------------------
 resource "aws_s3_bucket" "ahlorq_frontend" {
-  bucket =  "${var.RESOURCE_PREFIX}s"
+  bucket =  "${var.RESOURCE_PREFIX}-frontend"
   tags   = merge(var.COMMON_TAGS, tomap({"ResourceType" = "Static Website"}))
 }
 
@@ -87,35 +89,35 @@ resource "aws_s3_bucket_public_access_block" "allow_public_access" {
 }
 
 # this is necesarry if you are deploying to an aws account that is not yours
-resource "aws_s3_bucket_policy" "allow_public_access_and_gha" {
-  bucket = aws_s3_bucket.ahlorq_frontend.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid       = "PublicReadGetObject"
-        Effect    = "Allow"
-        Principal = "*"
-        Action    = "s3:GetObject"
-        Resource  = "${aws_s3_bucket.ahlorq_frontend.arn}/*"
-      },
-      {
-        Sid      = "AllowGitHubActionsSync"
-        Effect   = "Allow"
-        Principal = {AWS = "${var.GITHUB_ACTIONS_USER_ARN}"}
-        Action   = [
-          "s3:ListBucket",
-          "s3:PutObject",
-          "s3:DeleteObject"
-        ]
-        Resource = [
-          "${aws_s3_bucket.ahlorq_frontend.arn}",
-          "${aws_s3_bucket.ahlorq_frontend.arn}/*"
-        ]
-      }
-    ]
-  })
-}
+# resource "aws_s3_bucket_policy" "allow_public_access_and_gha" {
+#   bucket = aws_s3_bucket.ahlorq_frontend.id
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Sid       = "PublicReadGetObject"
+#         Effect    = "Allow"
+#         Principal = "*"
+#         Action    = "s3:GetObject"
+#         Resource  = "${aws_s3_bucket.ahlorq_frontend.arn}/*"
+#       },
+#       {
+#         Sid      = "AllowGitHubActionsSync"
+#         Effect   = "Allow"
+#         Principal = {AWS = "${var.GITHUB_ACTIONS_USER_ARN}"}
+#         Action   = [
+#           "s3:ListBucket",
+#           "s3:PutObject",
+#           "s3:DeleteObject"
+#         ]
+#         Resource = [
+#           "${aws_s3_bucket.ahlorq_frontend.arn}",
+#           "${aws_s3_bucket.ahlorq_frontend.arn}/*"
+#         ]
+#       }
+#     ]
+#   })
+# }
 
 # ---------------------------------------------
 # CLOUD FRONT DISTRIBUTION 
