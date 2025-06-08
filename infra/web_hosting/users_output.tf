@@ -3,7 +3,7 @@ output "COGNITO_USER_POOL_ARN"{
 }
 
 output "COGNITO_USER_POOL_ID"{
-  value = "${aws_cognito_user_pool.mealzine_users.id}"
+  value = "${aws_cognito_user_pool.ahlorq_users.id}"
 }
 
 output "COGNITO_USER_CLIENT_ID"{
