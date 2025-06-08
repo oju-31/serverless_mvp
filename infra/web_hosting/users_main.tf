@@ -31,8 +31,10 @@ resource "aws_cognito_user_pool_client" "ahlorq_ui" {
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows = ["code", "implicit"]
   allowed_oauth_scopes = ["openid", "email", "profile"]
-  callback_urls = [var.WEBAPP_DNS] # change this two
-  logout_urls   = [var.WEBAPP_DNS]
+  # callback_urls = [var.WEBAPP_DNS] # change this two
+  # logout_urls   = [var.WEBAPP_DNS]
+  callback_urls = ["https://${var.WEBAPP_DNS}"]
+  logout_urls   = ["https://${var.WEBAPP_DNS}"]
   supported_identity_providers = ["COGNITO"]
   explicit_auth_flows = [
     "ALLOW_USER_PASSWORD_AUTH",
