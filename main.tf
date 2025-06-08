@@ -7,7 +7,7 @@ locals {
   COMMON_TAGS          = { 
     Environment = var.ENV 
     Application = "serverless-webapp"
-    Project     = "style generation, sewing guide and store" 
+    Project     = "style generation sewing guide and store" 
     Owner       = "aojutomori@gmail.com"
     CostCenter  = "SERVERLESS-WEBAPP${var.ENV}-001"
   } 
