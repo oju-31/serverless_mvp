@@ -1,6 +1,4 @@
 ENV                      = "prod"
-# ROUTE53_HOSTED_ZONE_NAME = "demo.example.net"
-# WEBAPP_DNS               = "example.net" 
-COGNITO_USER_POOL_ID     = "us-east-1_UxRlIfhg5"
-COGNITO_CLIENT_ID        = "3t0ddf7eo26rhtm56q982v9a0p" 
+ROUTE53_HOSTED_ZONE_NAME = "ahlorq.com"
+WEBAPP_DNS               = "ahlorq.com" 
 GITHUB_ACTIONS_USER_ARN  = "arn:aws:iam::572977324971:user/github-actions-terraform-deployment"

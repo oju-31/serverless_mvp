@@ -65,4 +65,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  function initLogin() {
+    const form = document.querySelector('.signup-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      try {
+        const response = await fetch(`${configa.API_URL}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Store the token in localStorage
+          if (data.token) {
+            localStorage.setItem('authToken', data.token);
+          }
+          
+          // Redirect to dashboard or home page
+          window.location.href = '/pages/user/dashboard.html';
+        } else {
+          alert(data.message || "Login failed. Please check your credentials.");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert("Network error. Please try again later.");
+      }
+    });
+  }
   

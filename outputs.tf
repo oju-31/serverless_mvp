@@ -1,7 +1,3 @@
-# output "S3_FRONTEND_BUCKET_NAME" {
-#   value = module.static.S3_FRONTEND_BUCKET_NAME
-# }
-
 output "COGNITO_LOGIN_URL" {
   description = <<EOT
 Two things to note here, makesure the poolid and the cliend id 
