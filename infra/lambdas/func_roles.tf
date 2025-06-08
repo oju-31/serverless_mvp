@@ -19,7 +19,7 @@ resource "aws_iam_role" "sewing_guides" {
  }
  
 #  inline policy
-resource "aws_iam_role_policy" "auth" {
+resource "aws_iam_role_policy" "sewing_guides" {
   name = "sewing_guides-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.sewing_guides.id
 
@@ -99,7 +99,7 @@ resource "aws_iam_role" "style_generations" {
  }
  
 #  inline policy
-resource "aws_iam_role_policy" "auth" {
+resource "aws_iam_role_policy" "style_generations" {
   name = "style_generations-policy-${var.RESOURCE_PREFIX}"
   role = aws_iam_role.style_generations.id
   policy = jsonencode({
