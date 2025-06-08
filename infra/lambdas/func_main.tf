@@ -8,7 +8,7 @@ locals {
 # SEWING GUIDES LAMBDA
 #----------------------------------------------
 resource "aws_lambda_function" "sewing_guides" {
-  filename         = "${path.root}/src/zip/sewing_guides.zip"
+  filename         = "${path.root}/backend/zip/sewing_guides.zip"
   function_name    = "sewing_guides-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.sewing_guides.arn}"
   handler          = "guides.lambda_handler"
@@ -43,7 +43,7 @@ resource "aws_lambda_function_url" "sewing_guides" {
 # STORE MNGT LAMBDA
 #----------------------------------------------
 resource "aws_lambda_function" "store_mngt" {
-  filename         = "${path.root}/src/zip/store_mngt.zip"
+  filename         = "${path.root}/backend/zip/store_mngt.zip"
   function_name    = "store_mngt-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.store_mngt.arn}"
   handler          = "store.lambda_handler"
@@ -78,7 +78,7 @@ resource "aws_lambda_function_url" "store_mngt" {
 # STYLE GENERATIONS LAMBDA
 #----------------------------------------------
 resource "aws_lambda_function" "style_generations" {
-  filename         = "${path.root}/src/zip/style_generations.zip"
+  filename         = "${path.root}/backend/zip/style_generations.zip"
   function_name    = "style_generations-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.style_generations.arn}"
   handler          = "styles.lambda_handler"
@@ -113,7 +113,7 @@ resource "aws_lambda_function_url" "style_generations" {
 # USER MNGT LAMBDA
 #----------------------------------------------
 resource "aws_lambda_function" "user_mngt" {
-  filename         = "${path.root}/src/zip/user_mngt.zip"
+  filename         = "${path.root}/backend/zip/user_mngt.zip"
   function_name    = "user_mngt-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.user_mngt.arn}"
   handler          = "auth.lambda_handler"
