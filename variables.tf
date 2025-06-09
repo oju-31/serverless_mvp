@@ -4,20 +4,25 @@ variable "ENV" {
 
 variable "ROUTE53_HOSTED_ZONE_NAME" {
     type = string
+    default = "ahlorq.com"
 }
 
 variable "WEBAPP_DNS" {
     type = string
 }
 
+variable "WEBAPP_CERT_ID" {
+    type = string
+    default = "b75e9267-04df-45d2-9b2b-800c1bd1ee46"
+}
 
 variable "GITHUB_ACTIONS_USER_ARN" {
     type = string
+    default = "arn:aws:iam::572977324971:user/github-actions-terraform-deployment"
 }
 
 variable "AWS_REGION" {
     type = string
-    default = "us-east-1"
 }
 
 # locals {

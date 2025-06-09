@@ -1,3 +1,4 @@
+
 # ---------------------------------------------
 # COGNITO
 #----------------------------------------------
@@ -124,7 +125,7 @@ resource "aws_s3_bucket_policy" "allow_public_access_and_gha" {
 # ---------------------------------------------
 # CLOUD FRONT DISTRIBUTION 
 #----------------------------------------------
-resource "aws_cloudfront_distribution" "website_cdn" {
+resource "aws_cloudfront_distribution" "ahlorq_cdn" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
@@ -157,17 +158,53 @@ resource "aws_cloudfront_distribution" "website_cdn" {
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
-    default_ttl            = 600 # to change back to 3600
+    default_ttl            = 3600 # to change back to 3600
     max_ttl                = 86400
   }
 
+  aliases = local.ALIASSES  
+
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = "arn:aws:acm:us-eat-1:${var.ACCOUNT_ID}:certificate/${var.WEBAPP_CERT_ID}"
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   restrictions {
     geo_restriction {
       restriction_type = "none"
     }
+  }
+}
+
+
+# ---------------------------------------------
+# ROUTE 53 ALIAS RECORDS
+#---------------------------------------------- 
+resource "aws_route53_zone" "ahlorq_zone" {
+  name = "${var.ROUTE53_HOSTED_ZONE_NAME}"
+}
+
+resource "aws_route53_record" "root" {
+  zone_id = aws_route53_zone.ahlorq_zone.zone_id
+  name    = var.WEBAPP_DNS
+  type    = "A"
+  
+  alias {
+    name                   = aws_cloudfront_distribution.ahlorq_cdn.domain_name
+    zone_id                = aws_cloudfront_distribution.ahlorq_cdn.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.ahlorq_zone.zone_id
+  name    = "www.${var.WEBAPP_DNS}"
+  type    = "A"
+  
+  alias {
+    name                   = aws_cloudfront_distribution.ahlorq_cdn.domain_name
+    zone_id                = aws_cloudfront_distribution.ahlorq_cdn.hosted_zone_id
+    evaluate_target_health = false
   }
 }

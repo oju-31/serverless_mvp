@@ -14,3 +14,7 @@ output "S3_FRONTEND_BUCKET_NAME" {
   value = aws_s3_bucket.ahlorq_frontend.id
   description = "This is used to sync frontend with the s3 website bucket."
 }
+
+output "nameservers" {
+  value = aws_route53_zone.ahlorq_zone.name_servers
+}
