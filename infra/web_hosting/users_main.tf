@@ -165,7 +165,7 @@ resource "aws_cloudfront_distribution" "ahlorq_cdn" {
   aliases = local.ALIASSES  
 
   viewer_certificate {
-    acm_certificate_arn      = "arn:aws:acm:us-eat-1:${var.ACCOUNT_ID}:certificate/${var.WEBAPP_CERT_ID}"
+    acm_certificate_arn      = "arn:aws:acm:us-east-1:${var.ACCOUNT_ID}:certificate/${var.WEBAPP_CERT_ID}"
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

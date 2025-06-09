@@ -2,7 +2,6 @@ variable "ENV" {}
 variable "COMMON_TAGS" {}
 variable "WEBAPP_DNS" {}
 variable "ACCOUNT_ID" {}
-variable "AWS_REGION" {}
 variable "WEBAPP_CERT_ID" {}
 variable "RESOURCE_PREFIX" {}
 variable "GITHUB_ACTIONS_USER_ARN" {}
