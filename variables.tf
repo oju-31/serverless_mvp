@@ -13,7 +13,7 @@ variable "WEBAPP_DNS" {
 
 variable "WEBAPP_CERT_ID" {
     type = string
-    default = "06b65b45-3c56-466e-b0f5-e6d72114d018"
+    default = "b03f50c5-55d1-4caa-a24f-fa63d5403aca"
 }
 
 variable "GITHUB_ACTIONS_USER_ARN" {
