@@ -42,11 +42,11 @@ jobs:
 
     - name: Lint Python files with flake8
       run: |
-        flake8 modules/lambda/codes/
+        flake8 backend
 
     - name: Unit Test Python Files With Pytest
       run: |
-        pytest modules/lambda/codes/
+        pytest backend/unit_tests
 
     - name: 'Set up Terraform'
       uses: hashicorp/setup-terraform@v3

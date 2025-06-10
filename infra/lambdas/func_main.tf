@@ -11,7 +11,7 @@ resource "aws_lambda_function" "sewing_guides" {
   filename         = "${path.root}/backend/zip/sewing_guides.zip"
   function_name    = "sewing_guides-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.sewing_guides.arn}"
-  handler          = "guides.lambda_handler"
+  handler          = "guides_runner.lambda_handler"
   source_code_hash = data.archive_file.sewing_guides.output_base64sha256
   runtime          = local.PYTHON_VERSION
   timeout          = 300
@@ -46,7 +46,7 @@ resource "aws_lambda_function" "store_mngt" {
   filename         = "${path.root}/backend/zip/store_mngt.zip"
   function_name    = "store_mngt-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.store_mngt.arn}"
-  handler          = "store.lambda_handler"
+  handler          = "store_runner.lambda_handler"
   source_code_hash = data.archive_file.store_mngt.output_base64sha256
   runtime          = local.PYTHON_VERSION
   timeout          = 300
@@ -81,7 +81,7 @@ resource "aws_lambda_function" "style_generations" {
   filename         = "${path.root}/backend/zip/style_generations.zip"
   function_name    = "style_generations-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.style_generations.arn}"
-  handler          = "styles.lambda_handler"
+  handler          = "style_runner.lambda_handler"
   source_code_hash = data.archive_file.style_generations.output_base64sha256
   runtime          = local.PYTHON_VERSION
   timeout          = 300
@@ -116,7 +116,7 @@ resource "aws_lambda_function" "user_mngt" {
   filename         = "${path.root}/backend/zip/user_mngt.zip"
   function_name    = "user_mngt-${var.RESOURCE_PREFIX}-${local.LAMBDA_VERSION}"
   role             = "${aws_iam_role.user_mngt.arn}"
-  handler          = "auth.lambda_handler"
+  handler          = "auth_runner.lambda_handler"
   source_code_hash = data.archive_file.user_mngt.output_base64sha256
   runtime          = local.PYTHON_VERSION
   timeout          = 300
