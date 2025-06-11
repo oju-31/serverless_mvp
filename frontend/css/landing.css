@@ -205,13 +205,27 @@ h3 {
 
 /* Hero Visual */
 .hero-main-image {
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%; */
-    object-fit: contain;
-/* or
-  object-fit: cover; */
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: var(--shadow-heavy);
+}
+
+/* Update mobile responsiveness */
+@media (max-width: 768px) {
+    .hero-main-image {
+        max-width: 350px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-main-image {
+        max-width: 280px;
+        height: 250px;
+    }
 }
 
 /* .sewing-illustration {
