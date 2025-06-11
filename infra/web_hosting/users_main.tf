@@ -158,7 +158,7 @@ resource "aws_cloudfront_distribution" "ahlorq_cdn" {
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
-    default_ttl            = 3600 # to change back to 3600
+    default_ttl            = 36 # to change back to 3600
     max_ttl                = 86400
   }
 
