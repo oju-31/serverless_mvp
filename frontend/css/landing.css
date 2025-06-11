@@ -210,6 +210,14 @@ h3 {
     align-items: center;
 }
 
+.hero-main-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow-heavy);
+}
+
 .sewing-illustration {
     width: 400px;
     height: 400px;
