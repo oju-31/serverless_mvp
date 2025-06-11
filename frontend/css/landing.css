@@ -205,19 +205,13 @@ h3 {
 
 /* Hero Visual */
 .hero-image {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-}
-
-.hero-main-image {
-    width: 100%;
-    max-width: 500px;
-    height: 400px; /* Fixed height to prevent distortion */
-    object-fit: cover; /* This prevents stretching/distortion */
-    border-radius: 20px;
-    box-shadow: var(--shadow-heavy);
+    width: 100%; */
+  object-fit: contain;
+/* or
+  object-fit: cover; */
 }
 
 /* .sewing-illustration {
