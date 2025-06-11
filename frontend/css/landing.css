@@ -208,12 +208,14 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .hero-main-image {
     width: 100%;
     max-width: 500px;
-    height: auto;
+    height: 400px; /* Fixed height to prevent distortion */
+    object-fit: cover; /* This prevents stretching/distortion */
     border-radius: 20px;
     box-shadow: var(--shadow-heavy);
 }
