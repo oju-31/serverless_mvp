@@ -137,7 +137,7 @@ h3 {
 .hero {
     padding: 8rem 0 4rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
 }
