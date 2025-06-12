@@ -157,9 +157,9 @@ resource "aws_cloudfront_distribution" "ahlorq_cdn" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 36 # to change back to 3600
-    max_ttl                = 86400
+    min_ttl     = 0
+    default_ttl = var.ENV == "dev" ? 5 : var.ENV == "prod" ? 3600 : 3600
+    max_ttl     = 86400
   }
 
   aliases = local.ALIASSES  
