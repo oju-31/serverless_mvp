@@ -218,36 +218,6 @@ h3 {
     border-radius: 20px;
     box-shadow: var(--shadow-heavy);
 }
-/* .sewing-illustration {
-    width: 400px;
-    height: 400px;
-    position: relative;
-    background: var(--white);
-    border-radius: 20px;
-    box-shadow: var(--shadow-heavy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sewing-machine {
-    width: 200px;
-    height: 150px;
-    background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
-    border-radius: 15px;
-    position: relative;
-}
-
-.sewing-machine::before {
-    content: '';
-    width: 60px;
-    height: 60px;
-    background: var(--white);
-    border-radius: 50%;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-} */
 
 .fabric-pieces {
     position: absolute;
