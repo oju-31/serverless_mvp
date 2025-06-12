@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahlorq - Learn to Sew with Confidence | Beginner-Friendly Sewing Guides</title>
     <meta name="description" content="Master sewing with personalized guides, body measurements, and step-by-step instructions. Perfect for beginners wanting to create beautiful, well-fitted garments.">
-    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -51,11 +51,10 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://placehold.co/500x400/32cd32/ffffff?text=Woman+Sewing+Confidently" alt="Woman sewing at a modern sewing machine" class="hero-main-image">
-                <div class="floating-elements">
-                    <div class="float-element fabric-1"></div>
-                    <div class="float-element needle-icon"></div>
-                    <div class="float-element thread-spool"></div>
+                <div class="sewing-illustration">
+                    <!-- Placeholder for sewing illustration -->
+                    <div class="sewing-machine"></div>
+                    <div class="fabric-pieces"></div>
                 </div>
             </div>
         </div>
@@ -101,12 +100,8 @@
                 </div>
                 <div class="feature-visual">
                     <div class="measurement-mockup">
-                        <img src="https://placehold.co/400x350/f8f9fa/32cd32?text=Body+Measurement+Diagram" alt="Body measurement diagram">
-                        <div class="measurement-overlay">
-                            <div class="measurement-point point-1"></div>
-                            <div class="measurement-point point-2"></div>
-                            <div class="measurement-point point-3"></div>
-                        </div>
+                        <div class="body-diagram"></div>
+                        <div class="measurement-points"></div>
                     </div>
                 </div>
             </div>
@@ -129,14 +124,8 @@
                 </div>
                 <div class="feature-visual">
                     <div class="guide-mockup">
-                        <img src="https://placehold.co/400x350/ffffff/32cd32?text=Step-by-Step+Sewing+Guide" alt="Step-by-step sewing guide interface">
-                        <div class="step-indicators">
-                            <span class="step completed">1</span>
-                            <span class="step completed">2</span>
-                            <span class="step active">3</span>
-                            <span class="step">4</span>
-                            <span class="step">5</span>
-                        </div>
+                        <div class="guide-steps"></div>
+                        <div class="measurement-overlay"></div>
                     </div>
                 </div>
             </div>
@@ -159,18 +148,8 @@
                 </div>
                 <div class="feature-visual">
                     <div class="progress-mockup">
-                        <img src="https://placehold.co/400x350/f8f9fa/32cd32?text=Progress+Dashboard" alt="Progress tracking dashboard">
-                        <div class="progress-cards">
-                            <div class="project-card">
-                                <div class="project-progress" style="width: 75%"></div>
-                            </div>
-                            <div class="project-card">
-                                <div class="project-progress" style="width: 40%"></div>
-                            </div>
-                            <div class="project-card">
-                                <div class="project-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
+                        <div class="project-cards"></div>
+                        <div class="progress-bars"></div>
                     </div>
                 </div>
             </div>
@@ -188,7 +167,6 @@
                         <h3>Add Your Measurements</h3>
                         <p>Create a persona with your body measurements using our visual guides. Save measurements for family and friends too!</p>
                     </div>
-                    <div class="step-decoration"></div>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -196,7 +174,6 @@
                         <h3>Choose Your Project</h3>
                         <p>Browse our collection of beginner-friendly sewing guides organized by categories like skirts, dresses, and tops.</p>
                     </div>
-                    <div class="step-decoration"></div>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -204,7 +181,6 @@
                         <h3>Start Sewing</h3>
                         <p>Follow step-by-step instructions with your custom measurements. Track your progress and create beautiful, perfectly-fitted garments.</p>
                     </div>
-                    <div class="step-decoration"></div>
                 </div>
             </div>
         </div>
@@ -220,9 +196,7 @@
                         <p>"I've always been intimidated by sewing, but Ahlorq made it so approachable. The measurement guides are incredibly helpful!"</p>
                     </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://placehold.co/60x60/32cd32/ffffff?text=SM" alt="Sarah M.">
-                        </div>
+                        <div class="author-avatar"></div>
                         <div class="author-info">
                             <h4>Sarah M.</h4>
                             <span>Complete Beginner</span>
@@ -234,9 +208,7 @@
                         <p>"Finally, a platform that takes the guesswork out of pattern sizing. My first dress actually fits perfectly!"</p>
                     </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://placehold.co/60x60/32cd32/ffffff?text=EL" alt="Emma L.">
-                        </div>
+                        <div class="author-avatar"></div>
                         <div class="author-info">
                             <h4>Emma L.</h4>
                             <span>Hobby Sewer</span>
@@ -248,9 +220,7 @@
                         <p>"The progress tracking feature is a game-changer. I can work on multiple projects without losing track of where I am."</p>
                     </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://placehold.co/60x60/32cd32/ffffff?text=MR" alt="Maria R.">
-                        </div>
+                        <div class="author-avatar"></div>
                         <div class="author-info">
                             <h4>Maria R.</h4>
                             <span>Weekend Maker</span>
@@ -373,6 +343,6 @@
         </div>
     </footer>
 
-    <script src="js/landing.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
