@@ -472,7 +472,7 @@ h3 {
     width: 12px;
     height: 12px;
     background: var(--accent-color);
-    border-radius: 50;
+    border-radius: 50%;
     border: 2px solid var(--white);
    animation: pulse 2s infinite;
 }
