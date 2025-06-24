@@ -957,3 +957,11 @@ h3 {
    background: var(--primary-color);
    color: var(--white);
 }
+
+.feature-mockup {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+}
