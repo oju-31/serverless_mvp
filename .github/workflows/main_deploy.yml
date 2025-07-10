@@ -7,14 +7,14 @@ on:
   pull_request:
     branches:
       - main
-# temporary not in used
+
 jobs:
   terraform:
     name: 'Prod: Terraform and Python Lint'
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: 'eu-west-2'
+      AWS_REGION: 'us-east-2' # update if needed
       TF_VERSION: '1.5.0'
       TFLINT_VERSION: '0.54.0'  # Update to a more recent version
       TFSEC_VERSION: '1.28.1'   # Update to a more recent version
