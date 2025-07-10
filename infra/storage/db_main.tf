@@ -1,32 +1,16 @@
-locals {
-  TAGS = merge(var.COMMON_TAGS, tomap({"ResourceType" = "DATABASE"}))
-}
-
-resource "aws_dynamodb_table" "image_table" {
-  name           = "${var.RESOURCE_PREFIX}-images-table"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "albumID"
-  range_key      = "imageID"
-  tags           = local.TAGS
-  attribute {
-    name = "albumID"
-    type = "S"
-  }
-  attribute {
-    name = "imageID"
-    type = "S"
-  }
-
-}
-
 resource "aws_dynamodb_table" "user_table" {
   name           = "${var.RESOURCE_PREFIX}-users-table"
   billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "userID"
   tags           = local.TAGS
+  
+  deletion_protection_enabled = var.ENV == "prod" ? true : false
+  
   attribute {
     name = "userID"
     type = "S"
   }
 }
 
+# add another table here if for your application
+# add s3 bucket here if you need one for your application

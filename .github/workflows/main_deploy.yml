@@ -10,7 +10,7 @@ on:
 # temporary not in used
 jobs:
   terraform:
-    name: 'Terraform and Python Lint'
+    name: 'Prod: Terraform and Python Lint'
     runs-on: ubuntu-latest
 
     env:

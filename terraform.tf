@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
     encrypt        = true
-    bucket         = "ahlorq-styles-webapp-aws-terraform-remote-state-centralized"
-    dynamodb_table = "ahlorq-styles-webapp-aws-terraform-locks-centralized"
-    region         = "us-east-1"
-    key            = "ahlorq-styles-monorepo-webapp-infra/terraform.tfstate"
+    bucket         = "-aws-terraform-remote-state"              # prefix with your app name
+    dynamodb_table = "-aws-terraform-lock-centralized"          # prefix with your app name
+    region         = "us-east-1"                                # change to your region
+    key            = "-monorepo-webapp-infra/terraform.tfstate" # prefix with your app name
   }
   required_version = ">=1.0"
   required_providers {
@@ -20,4 +20,3 @@ provider "aws" {
 }
 
 data "aws_caller_identity" "current" {}
-# data "aws_region" "current" {}

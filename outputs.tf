@@ -1,33 +1,19 @@
-output "COGNITO_LOGIN_URL" {
-  description = <<EOT
-Two things to note here, makesure the poolid and the cliend id 
-matches the one on your tvars. The poolid is the one right after https://.
-Also, ??the CLOUDFRONT_DOMAIN_NAME output returns a url without https
-preceding, so that has been done with the slashes escaped
-EOT
-  # value = "https://us-east-1uxrlifhg5.auth.us-east-1.amazoncognito.com/login?client_id=3t0ddf7eo26rhtm56q982v9a0p&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2F${module.static.CLOUDFRONT_DOMAIN_NAME}"
-  value = "this is a placeholder"
-}
-
 #-------------------------------
 #  API ENDPOINTS
 #-------------------------------
+output "environment_label" {
+  description = "Environment label"
+  value       = var.ENV == "dev" ? "These are Development URLs" : "These are Production URLs"
+}
 
-# output "SEND_PROMPTS_ENDPOINT" {
-#   value = module.lambdas.LAMBDA_SEND_PROMPTS_ENDPOINT
+# output "USER_MNGT_ENDPOINT" {
+#   value = module.lambdas.LAMBDA_USER_MNGT_ENDPOINT
 # }
-# output "GET_TOKEN_ENDPOINT" {
-#   value = module.lambdas.LAMBDA_GET_TOKEN_ENDPOINT
+
+# output "MY_MVP_ENDPOINT" {
+#   value = module.lambdas.LAMBDA_MY_MVP_ENDPOINT
 # }
-# output "STORE_IMAGES_ENDPOINT" {
-#   value = module.lambdas.LAMBDA_STORE_IMAGES_ENDPOINT
-# }
-# output "GET_IMAGES_ENDPOINT" {
-#   value = module.lambdas.LAMBDA_GET_IMAGES_ENDPOINT
-# }
-# output "GET_ALBUMS_ENDPOINT" {
-#   value = module.lambdas.LAMBDA_GET_ALBUMS_ENDPOINT
-# }
-# output "UPDATE_ALBUM_ENDPOINT" {
-#   value = module.lambdas.LAMBDA_UPDATE_ALBUM_ENDPOINT
+
+# output "CLOUDFRONT_DOMAIN_NAME" {
+#   value = module.web_hosting.CLOUDFRONT_DOMAIN_NAME
 # }

@@ -1,19 +1,10 @@
-data "archive_file" "sewing_guides" {
-  type        = "zip"
-  source_dir  = "${path.root}/backend/code/sewing_guides"
-  output_path = "${path.root}/backend/zip/sewing_guides.zip"
-}
+# This paryt of the code is used to create zip files for various backend services.
+# because lambda functions in AWS require the code to be packaged in a zip file.
 
-data "archive_file" "store_mngt" {
+data "archive_file" "my_mvp" {
   type        = "zip"
-  source_dir  = "${path.root}/backend/code/store_mngt"
-  output_path = "${path.root}/backend/zip/store_mngt.zip"
-}
-
-data "archive_file" "style_generations" {
-  type        = "zip"
-  source_dir  = "${path.root}/backend/code/style_generations"
-  output_path = "${path.root}/backend/zip/style_generations.zip"
+  source_dir  = "${path.root}/backend/code/my_mvp"
+  output_path = "${path.root}/backend/zip/my_mvp.zip"
 }
 
 data "archive_file" "user_mngt" {

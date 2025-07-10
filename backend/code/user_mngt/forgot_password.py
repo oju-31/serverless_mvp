@@ -1,16 +1,12 @@
-import boto3
-from auth_utils import logger
-from os import getenv
+from A2_user_utils import logger, cognito_client, CLIENT_ID, validate_required_fields, validate_email_pattern
 
-client = boto3.client('cognito-idp')
-CLIENT_ID = getenv("CLIENT_ID")
-required_fields = {"username", "password"}
+required_fields = {"email": str}
 
 
 def forgot_pass(user):
     logger.info(user)
     email = validate_forgot_password(user)
-    client.forgot_password(
+    cognito_client.forgot_password(
             ClientId=CLIENT_ID,
             Username=email
         )
@@ -18,8 +14,8 @@ def forgot_pass(user):
 
 
 def validate_forgot_password(data):
-    # Validate required fields exist
-    email = "username"
-    if email not in data or not isinstance(data[email], str):
-           raise ValueError(f"Missing required field '{email}', which must be a string")
-    return data[email]
+    validate_required_fields(data, required_fields)
+    # email 
+    email = data["email"].lower()
+    validate_email_pattern(email)
+    return  email

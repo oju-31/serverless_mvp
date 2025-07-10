@@ -1,27 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Ahlorq</title>
-  <link rel="stylesheet" type="text/css" href="/css/auth.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Luxury Brand</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body data-page="login">
-  <div class="signup-container">
-    <h1>Welcome Back</h1>
-    <form class="signup-form" action="#" method="post">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required />
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm mt-5">
+                    <div class="card-body p-4">
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <h1 class="h3 text-primary">
+                                <i class="bi bi-gem me-2"></i>Welcome Back
+                            </h1>
+                            <p class="text-muted">Sign in to your account</p>
+                        </div>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+                        <!-- Alert Messages -->
+                        <div id="alertContainer"></div>
 
-      <button type="submit">Login</button>
-    </form>
+                        <!-- Login Form -->
+                        <form id="loginForm">
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
 
-    <p class="login-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
-    <p class="login-link"><a href="forgot_pass.html">Forgot Password?</a></p>
-  </div>
-  <script type="module" src="/js/auth.js"></script>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="bi bi-eye" id="passwordIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Remember Me & Forgot Password -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">
+                                        Remember me
+                                    </label>
+                                </div>
+                                <a href="forgot_pass.html" class="text-decoration-none small">Forgot Password?</a>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary w-100" id="loginBtn">
+                                <span id="loginSpinner" class="spinner-border spinner-border-sm me-2 d-none"></span>
+                                Sign In
+                            </button>
+                        </form>
+
+                        <!-- Social Login Divider -->
+                        <div class="text-center my-4">
+                            <div class="position-relative">
+                                <hr>
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">or</span>
+                            </div>
+                        </div>
+
+                        <!-- Social Login Buttons -->
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="button" class="btn btn-outline-secondary" id="googleLogin">
+                                <i class="bi bi-google me-2"></i>Continue with Google
+                            </button>
+                        </div>
+
+                        <!-- Signup Link -->
+                        <div class="text-center">
+                            <p class="text-muted">Don't have an account? <a href="signup.html" class="text-decoration-none">Sign Up</a></p>
+                        </div>
+
+                        <!-- Account Status Links -->
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                Account issues? 
+                                <a href="enable_user.html" class="text-decoration-none">Enable Account</a> | 
+                                <a href="forgot_pass.html" class="text-decoration-none">Reset Password</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Disabled Modal -->
+    <div class="modal fade" id="disabledAccountModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pause-circle me-2"></i>Account Disabled
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="bi bi-pause-circle-fill text-warning" style="font-size: 3rem;"></i>
+                        <h6 class="mt-3">Your account has been disabled</h6>
+                        <p class="text-muted mb-3">
+                            You cannot sign in because your account is currently disabled. 
+                            You can re-enable it by verifying your credentials.
+                        </p>
+                        <div class="alert alert-info">
+                            <small><strong>Note:</strong> You'll need your email and password to re-enable your account.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stay Here</button>
+                    <button type="button" class="btn btn-warning" id="goToEnableBtn">
+                        <i class="bi bi-play-circle me-1"></i>Enable My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Config -->
+    <script src="../../js/config.js"></script>
+    
+    <script>
+        // Get environment configuration
+        const config = getEnvironmentConfig();
+        
+        // DOM elements
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginSpinner = document.getElementById('loginSpinner');
+        const alertContainer = document.getElementById('alertContainer');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const passwordIcon = document.getElementById('passwordIcon');
+        const googleLoginBtn = document.getElementById('googleLogin');
+        const emailInput = document.getElementById('email');
+        
+        // Modal elements
+        const disabledAccountModal = new bootstrap.Modal(document.getElementById('disabledAccountModal'));
+        const goToEnableBtn = document.getElementById('goToEnableBtn');
+
+        let currentUserEmail = '';
+
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            const accessToken = localStorage.getItem('accessToken');
+            if (accessToken) {
+                // User is already logged in, redirect to home
+                redirectToHome();
+            }
+            
+            // Pre-fill email if remembered
+            loadRememberedEmail();
+            
+            // Check if redirected from enable page with success
+            checkEnableSuccess();
+        });
+
+        // Check for enable success message
+        function checkEnableSuccess() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const enabled = urlParams.get('enabled');
+            
+            if (enabled === 'true') {
+                showAlert('success', 'Account enabled successfully! You can now sign in.');
+                // Remove the parameter from URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // Redirect to appropriate home page
+        function redirectToHome() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectUrl = urlParams.get('redirect');
+            
+            if (redirectUrl) {
+                window.location.href = decodeURIComponent(redirectUrl);
+            } else {
+                window.location.href = '../../index.html';
+            }
+        }
+
+        // Load remembered email
+        function loadRememberedEmail() {
+            const rememberMe = localStorage.getItem('rememberMe');
+            const userEmail = localStorage.getItem('userEmail');
+            
+            if (rememberMe === 'true' && userEmail) {
+                emailInput.value = userEmail;
+                document.getElementById('rememberMe').checked = true;
+            }
+        }
+
+        // Password visibility toggle
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            if (type === 'password') {
+                passwordIcon.className = 'bi bi-eye';
+            } else {
+                passwordIcon.className = 'bi bi-eye-slash';
+            }
+        });
+
+        // Form validation
+        function validateForm() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            // Clear previous validation states
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+            let isValid = true;
+
+            // Email validation
+            if (!email) {
+                showFieldError('email', 'Email is required');
+                isValid = false;
+            } else {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    showFieldError('email', 'Please enter a valid email address');
+                    isValid = false;
+                }
+            }
+
+            // Password validation
+            if (!password) {
+                showFieldError('password', 'Password is required');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-invalid');
+            
+            // Remove existing feedback
+            const existingFeedback = field.parentNode.querySelector('.invalid-feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Add new feedback
+            const feedback = document.createElement('div');
+            feedback.className = 'invalid-feedback';
+            feedback.textContent = message;
+            field.parentNode.appendChild(feedback);
+        }
+
+        function showAlert(type, message) {
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+
+        function setLoading(loading) {
+            loginBtn.disabled = loading;
+            emailInput.disabled = loading;
+            passwordInput.disabled = loading;
+            
+            if (loading) {
+                loginSpinner.classList.remove('d-none');
+                loginBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Signing In...';
+            } else {
+                loginSpinner.classList.add('d-none');
+                loginBtn.innerHTML = 'Sign In';
+            }
+        }
+
+        // Check if error indicates disabled account
+        function isDisabledAccountError(errorMessage) {
+            const disabledKeywords = [
+                'disabled',
+                'deactivated', 
+                'suspended',
+                'not enabled',
+                'account is disabled',
+                'user is disabled'
+            ];
+            
+            return disabledKeywords.some(keyword => 
+                errorMessage.toLowerCase().includes(keyword)
+            );
+        }
+
+        // Handle disabled account redirect
+        function handleDisabledAccount(email) {
+            currentUserEmail = email;
+            disabledAccountModal.show();
+        }
+
+        // Redirect to enable page
+        function redirectToEnablePage(email) {
+            // Store email for the enable page
+            sessionStorage.setItem('disabledUserEmail', email);
+            window.location.href = `enable_user.html?email=${encodeURIComponent(email)}`;
+        }
+
+        // Form submission
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            setLoading(true);
+            alertContainer.innerHTML = '';
+
+            const formData = {
+                type: 'login',
+                email: emailInput.value.trim().toLowerCase(),
+                password: passwordInput.value
+            };
+
+            try {
+                console.log('Attempting login with:', { email: formData.email });
+                
+                const response = await fetch(config.userMngtURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                console.log('Login response:', data);
+
+                if (response.ok && data.status === 'Success') {
+                    // Store tokens
+                    localStorage.setItem('accessToken', data.message.access_token);
+                    localStorage.setItem('refreshToken', data.message.refresh_token);
+                    localStorage.setItem('tokenType', data.message.token_type);
+                    localStorage.setItem('expiresIn', data.message.expires_in);
+                    localStorage.setItem('loginTime', Date.now().toString());
+                    
+                    // Store remember me preference
+                    const rememberMe = document.getElementById('rememberMe').checked;
+                    if (rememberMe) {
+                        localStorage.setItem('rememberMe', 'true');
+                        localStorage.setItem('userEmail', formData.email);
+                    } else {
+                        localStorage.removeItem('rememberMe');
+                        localStorage.removeItem('userEmail');
+                    }
+                    
+                    showAlert('success', 'Login successful! Redirecting...');
+                    
+                    // Redirect after a brief delay
+                    setTimeout(() => {
+                        redirectToHome();
+                    }, 1500);
+                } else {
+                    console.error('Login failed:', data);
+                    const errorMessage = data.message || 'Login failed. Please check your credentials.';
+                    
+                    // Check if account is disabled
+                    if (isDisabledAccountError(errorMessage)) {
+                        handleDisabledAccount(formData.email);
+                    } else {
+                        // Show regular error
+                        showAlert('danger', errorMessage);
+                        
+                        // If error mentions being disabled, add a note about enabling
+                        if (errorMessage.toLowerCase().includes('disabled')) {
+                            setTimeout(() => {
+                                showAlert('info', 
+                                    'If your account is disabled, you can <a href="enable_user.html" class="alert-link">re-enable it here</a>.'
+                                );
+                            }, 2000);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('danger', 'Network error. Please check your connection and try again.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Enable page redirect from modal
+        goToEnableBtn.addEventListener('click', function() {
+            disabledAccountModal.hide();
+            redirectToEnablePage(currentUserEmail);
+        });
+
+        // Google login placeholder
+        googleLoginBtn.addEventListener('click', function() {
+            showAlert('info', 'Google login will be implemented soon.');
+        });
+
+        // Clear alerts when user starts typing
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                if (alertContainer.innerHTML) {
+                    alertContainer.innerHTML = '';
+                }
+                // Clear field-specific errors
+                this.classList.remove('is-invalid');
+                const feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.remove();
+                }
+            });
+        });
+
+        // Handle Enter key in password field
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Debug: Log configuration
+        console.log('Login page config:', config);
+    </script>
 </body>
 </html>

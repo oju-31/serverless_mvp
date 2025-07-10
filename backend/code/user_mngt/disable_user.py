@@ -1,25 +1,20 @@
-import boto3
-from core_utils import logger
-from os import getenv
+from datetime import datetime
+from A2_user_utils import logger, cognito_client, POOL_ID, validate_required_fields, get_tokens, get_user_from_token, update_user_status
 
-client = boto3.client('cognito-idp')
-CLIENT_ID = getenv("CLIENT_ID")
-required_fields = {"username", "password"}
+required_fields = {"password": str, "auth": str}
 
 
 def disable_user_acct(user):
     logger.info(user)
-    email = validate_disable_user(user)
-    client.forgot_password(
-            ClientId=CLIENT_ID,
-            Username=email
-        )
-    return "Code sent to your email"
-
-
-def validate_disable_user(data):
-    # Validate required fields exist
-    email = "username"
-    if email not in data or not isinstance(data[email], str):
-           raise ValueError(f"Missing required field '{email}', which must be a string")
-    return data[email]
+    validate_required_fields(user, required_fields)
+    email, user_id = get_user_from_token(user["auth"])
+    password = user["password"]
+    user_check = get_tokens(email, password)
+    if not user_check:
+        raise ValueError("Invalid credentials")
+    update_user_status(user_id, "DISABLED")
+    cognito_client.admin_disable_user(
+        UserPoolId=POOL_ID,
+        Username=email
+    )
+    return "User disabled successfully"

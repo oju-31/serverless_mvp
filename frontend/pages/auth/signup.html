@@ -1,32 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up | Ahlorq</title>
-  <link rel="stylesheet" type="text/css" href="/css/auth.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Luxury Brand</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body data-page="signup">
-  <div class="signup-container">
-    <h1>Create an Account</h1>
-    <form class="signup-form" action="#" method="post">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-sm mt-5">
+                    <div class="card-body p-4">
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <h1 class="h3 text-primary">
+                                <i class="bi bi-gem me-2"></i>Create Account
+                            </h1>
+                            <p class="text-muted">Join our luxury brand community</p>
+                        </div>
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required />
+                        <!-- Alert Messages -->
+                        <div id="alertContainer"></div>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+                        <!-- Signup Form -->
+                        <form id="signupForm">
+                            <!-- Full Name -->
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                                <div class="form-text">Enter your first and last name (minimum 3 characters each)</div>
+                            </div>
 
-      <label for="confirm-password">Confirm Password</label>
-      <input type="password" id="confirm-password" name="confirm-password" required />
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
 
-      <button type="submit">Sign Up</button>
-    </form>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="bi bi-eye" id="passwordIcon"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text">Minimum 8 characters required</div>
+                            </div>
 
-    <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
-  </div>
-  <script type="module" src="/js/auth.js"></script>
+                            <!-- Confirm Password -->
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+
+                            <!-- Terms Agreement -->
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                    <label class="form-check-label" for="agreeTerms">
+                                        I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary w-100" id="signupBtn">
+                                <span id="signupSpinner" class="spinner-border spinner-border-sm me-2 d-none"></span>
+                                Create Account
+                            </button>
+                        </form>
+
+                        <!-- Login Link -->
+                        <div class="text-center mt-3">
+                            <p class="text-muted">Already have an account? <a href="login.html" class="text-decoration-none">Sign In</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Config -->
+    <script src="../../js/config.js"></script>
+    
+    <script>
+        // Get environment configuration
+        const config = getEnvironmentConfig();
+        
+        // DOM elements
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const signupSpinner = document.getElementById('signupSpinner');
+        const alertContainer = document.getElementById('alertContainer');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const passwordIcon = document.getElementById('passwordIcon');
+
+        // Password visibility toggle
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            if (type === 'password') {
+                passwordIcon.className = 'bi bi-eye';
+            } else {
+                passwordIcon.className = 'bi bi-eye-slash';
+            }
+        });
+
+        // Form validation
+        function validateForm() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+
+            // Clear previous validation states
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+            let isValid = true;
+
+            // Full name validation
+            if (!fullName) {
+                showFieldError('fullName', 'Full name is required');
+                isValid = false;
+            } else {
+                const nameParts = fullName.split(' ').filter(part => part.length > 0);
+                if (nameParts.length < 1) {
+                    showFieldError('fullName', 'Please enter at least your first name');
+                    isValid = false;
+                } else {
+                    // Check if each part is at least 3 characters
+                    for (let part of nameParts) {
+                        if (part.length < 3) {
+                            showFieldError('fullName', 'Each part of your name must be at least 3 characters long');
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Email validation
+            if (!email) {
+                showFieldError('email', 'Email is required');
+                isValid = false;
+            } else {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    showFieldError('email', 'Please enter a valid email address');
+                    isValid = false;
+                }
+            }
+
+            // Password validation
+            if (!password) {
+                showFieldError('password', 'Password is required');
+                isValid = false;
+            } else if (password.length < 8) {
+                showFieldError('password', 'Password must be at least 8 characters long');
+                isValid = false;
+            }
+
+            // Confirm password validation
+            if (!confirmPassword) {
+                showFieldError('confirmPassword', 'Please confirm your password');
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                showFieldError('confirmPassword', 'Passwords do not match');
+                isValid = false;
+            }
+
+            // Terms agreement validation
+            if (!agreeTerms) {
+                showAlert('danger', 'You must agree to the Terms of Service and Privacy Policy');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-invalid');
+            
+            // Remove existing feedback
+            const existingFeedback = field.parentNode.querySelector('.invalid-feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Add new feedback
+            const feedback = document.createElement('div');
+            feedback.className = 'invalid-feedback';
+            feedback.textContent = message;
+            field.parentNode.appendChild(feedback);
+        }
+
+        function showAlert(type, message) {
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+
+        function setLoading(loading) {
+            signupBtn.disabled = loading;
+            if (loading) {
+                signupSpinner.classList.remove('d-none');
+                signupBtn.textContent = ' Creating Account...';
+            } else {
+                signupSpinner.classList.add('d-none');
+                signupBtn.textContent = 'Create Account';
+            }
+        }
+
+        // Form submission
+        signupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            setLoading(true);
+            alertContainer.innerHTML = '';
+
+            const formData = {
+                type: 'signup',
+                email: document.getElementById('email').value.trim().toLowerCase(),
+                password: document.getElementById('password').value,
+                full_name: document.getElementById('fullName').value.trim(),
+                agreed_to_terms: document.getElementById('agreeTerms').checked
+            };
+
+            try {
+                const response = await fetch(config.userMngtURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'Success') {
+                    showAlert('success', data.message);
+                    
+                    // Store email for confirmation page
+                    sessionStorage.setItem('signupEmail', formData.email);
+                    
+                    // Redirect to confirmation page after a brief delay
+                    setTimeout(() => {
+                        window.location.href = 'comfirm_signup.html';
+                    }, 2000);
+                } else {
+                    showAlert('danger', data.message || 'An error occurred during signup');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showAlert('danger', 'Network error. Please check your connection and try again.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Real-time validation feedback
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword && password !== confirmPassword) {
+                this.classList.add('is-invalid');
+                let feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (!feedback) {
+                    feedback = document.createElement('div');
+                    feedback.className = 'invalid-feedback';
+                    this.parentNode.appendChild(feedback);
+                }
+                feedback.textContent = 'Passwords do not match';
+            } else {
+                this.classList.remove('is-invalid');
+                const feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.remove();
+                }
+            }
+        });
+
+        // Clear alerts when user starts typing
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                if (alertContainer.innerHTML) {
+                    alertContainer.innerHTML = '';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

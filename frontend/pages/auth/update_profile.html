@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile - Luxury Brand</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <i class="bi bi-gem me-2"></i>Luxury Brand
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="../../index.html">Home</a>
+                <a class="nav-link" href="profile.html">Profile</a>
+                <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <!-- Loading State -->
+                <div id="loadingState" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Loading profile...</p>
+                </div>
+
+                <!-- Update Profile Card -->
+                <div id="updateCard" class="card shadow-sm d-none">
+                    <div class="card-body p-4">
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-person-gear" style="font-size: 2rem;"></i>
+                            </div>
+                            <h2 class="mt-3 mb-1">Update Profile</h2>
+                            <p class="text-muted mb-0">Edit your personal information</p>
+                        </div>
+
+                        <!-- Alert Messages -->
+                        <div id="alertContainer"></div>
+
+                        <!-- Current Profile Info -->
+                        <div class="alert alert-info d-flex align-items-start mb-4">
+                            <i class="bi bi-info-circle me-2 mt-1"></i>
+                            <div>
+                                <strong>Current Profile:</strong><br>
+                                <span id="currentName">Loading...</span><br>
+                                <small class="text-muted" id="currentEmail">Loading...</small>
+                            </div>
+                        </div>
+
+                        <!-- Update Form -->
+                        <form id="updateForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+                                            <input type="text" class="form-control" id="firstName" required>
+                                        </div>
+                                        <div class="form-text">Enter your first name (minimum 2 characters)</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+                                            <input type="text" class="form-control" id="lastName" required>
+                                        </div>
+                                        <div class="form-text">Enter your last name (minimum 2 characters)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Current vs New Comparison -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="card bg-light">
+                                        <div class="card-body p-3">
+                                            <h6 class="card-title mb-2">
+                                                <i class="bi bi-clock-history me-1"></i>Current
+                                            </h6>
+                                            <p class="card-text small mb-0" id="currentNameDisplay">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-primary text-white">
+                                        <div class="card-body p-3">
+                                            <h6 class="card-title mb-2">
+                                                <i class="bi bi-arrow-right me-1"></i>New
+                                            </h6>
+                                            <p class="card-text small mb-0" id="newNameDisplay">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button type="submit" class="btn btn-primary" id="updateBtn">
+                                    <span id="updateSpinner" class="spinner-border spinner-border-sm me-2 d-none"></span>
+                                    <i class="bi bi-check-circle me-1"></i>Update Profile
+                                </button>
+                                <a href="profile.html" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left me-1"></i>Back to Profile
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary" id="resetBtn">
+                                    <i class="bi bi-arrow-clockwise me-1"></i>Reset Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorState" class="card shadow-sm d-none">
+                    <div class="card-body p-4 text-center">
+                        <i class="bi bi-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+                        <h5 class="mt-3 text-danger">Error Loading Profile</h5>
+                        <p class="text-muted" id="errorMessage">Unable to load profile information.</p>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button class="btn btn-primary" id="retryBtn">
+                                <i class="bi bi-arrow-clockwise me-1"></i>Retry
+                            </button>
+                            <a href="profile.html" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i>Back to Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle me-2"></i>Profile Updated
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="text-success">Profile Updated Successfully!</h5>
+                    <p class="text-muted mb-3">Your profile information has been updated.</p>
+                    <div class="alert alert-info">
+                        <strong>Updated to:</strong> <span id="successNameDisplay">-</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="profile.html" class="btn btn-success">
+                        <i class="bi bi-person me-1"></i>View Profile
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Editing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Config -->
+    <script src="../../js/config.js"></script>
+    
+    <script>
+        // Get environment configuration
+        const config = getEnvironmentConfig();
+        
+        // DOM elements
+        const loadingState = document.getElementById('loadingState');
+        const updateCard = document.getElementById('updateCard');
+        const errorState = document.getElementById('errorState');
+        const alertContainer = document.getElementById('alertContainer');
+        const updateForm = document.getElementById('updateForm');
+        
+        // Profile display elements
+        const currentName = document.getElementById('currentName');
+        const currentEmail = document.getElementById('currentEmail');
+        const currentNameDisplay = document.getElementById('currentNameDisplay');
+        const newNameDisplay = document.getElementById('newNameDisplay');
+        
+        // Form elements
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const updateBtn = document.getElementById('updateBtn');
+        const updateSpinner = document.getElementById('updateSpinner');
+        const resetBtn = document.getElementById('resetBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        // Modal elements
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        const successNameDisplay = document.getElementById('successNameDisplay');
+        
+        let originalUserData = null;
+
+        // Check authentication and load profile
+        window.addEventListener('load', function() {
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            loadProfile();
+        });
+
+        // Load current profile data
+        async function loadProfile() {
+            showLoading();
+            
+            const accessToken = localStorage.getItem('accessToken');
+            const formData = {
+                type: 'get_user',
+                auth: accessToken
+            };
+
+            try {
+                const response = await fetch(config.userMngtURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': accessToken
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'Success') {
+                    originalUserData = data.message;
+                    displayProfile(originalUserData);
+                } else {
+                    showError(data.message || 'Failed to load profile');
+                }
+            } catch (error) {
+                console.error('Profile load error:', error);
+                showError('Network error. Please check your connection and try again.');
+            }
+        }
+
+        // Display profile information in form
+        function displayProfile(userData) {
+            // Set current info displays
+            const fullName = `${userData.given_name || ''} ${userData.family_name || ''}`.trim() || 'No name set';
+            currentName.textContent = fullName;
+            currentEmail.textContent = userData.email || 'No email';
+            currentNameDisplay.textContent = fullName;
+            
+            // Pre-fill form with current values
+            firstName.value = userData.given_name || '';
+            lastName.value = userData.family_name || '';
+            
+            // Update the new name display
+            updateNewNameDisplay();
+            
+            showUpdateCard();
+        }
+
+        // Update the "new name" display as user types
+        function updateNewNameDisplay() {
+            const newFirstName = firstName.value.trim();
+            const newLastName = lastName.value.trim();
+            const newFullName = `${newFirstName} ${newLastName}`.trim() || 'No name';
+            newNameDisplay.textContent = newFullName;
+        }
+
+        // Add event listeners for real-time name display update
+        firstName.addEventListener('input', updateNewNameDisplay);
+        lastName.addEventListener('input', updateNewNameDisplay);
+
+        // Show different states
+        function showLoading() {
+            loadingState.classList.remove('d-none');
+            updateCard.classList.add('d-none');
+            errorState.classList.add('d-none');
+        }
+
+        function showUpdateCard() {
+            loadingState.classList.add('d-none');
+            updateCard.classList.remove('d-none');
+            errorState.classList.add('d-none');
+        }
+
+        function showError(message) {
+            loadingState.classList.add('d-none');
+            updateCard.classList.add('d-none');
+            errorState.classList.remove('d-none');
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        // Form validation
+        function validateForm() {
+            const firstNameValue = firstName.value.trim();
+            const lastNameValue = lastName.value.trim();
+
+            // Clear previous validation states
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+            let isValid = true;
+
+            // First name validation
+            if (!firstNameValue) {
+                showFieldError('firstName', 'First name is required');
+                isValid = false;
+            } else if (firstNameValue.length < 2) {
+                showFieldError('firstName', 'First name must be at least 2 characters long');
+                isValid = false;
+            }
+
+            // Last name validation
+            if (!lastNameValue) {
+                showFieldError('lastName', 'Last name is required');
+                isValid = false;
+            } else if (lastNameValue.length < 2) {
+                showFieldError('lastName', 'Last name must be at least 2 characters long');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-invalid');
+            
+            // Remove existing feedback
+            const existingFeedback = field.parentNode.querySelector('.invalid-feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Add new feedback
+            const feedback = document.createElement('div');
+            feedback.className = 'invalid-feedback';
+            feedback.textContent = message;
+            field.parentNode.appendChild(feedback);
+        }
+
+        function showAlert(type, message) {
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+
+        function setLoading(loading) {
+            updateBtn.disabled = loading;
+            firstName.disabled = loading;
+            lastName.disabled = loading;
+            resetBtn.disabled = loading;
+            
+            if (loading) {
+                updateSpinner.classList.remove('d-none');
+                updateBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Updating...';
+            } else {
+                updateSpinner.classList.add('d-none');
+                updateBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Update Profile';
+            }
+        }
+
+        // Update form submission
+        updateForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            // Check if anything actually changed
+            const newFirstName = firstName.value.trim();
+            const newLastName = lastName.value.trim();
+            const currentFirstName = originalUserData.given_name || '';
+            const currentLastName = originalUserData.family_name || '';
+
+            if (newFirstName === currentFirstName && newLastName === currentLastName) {
+                showAlert('info', 'No changes detected. Please modify your information before updating.');
+                return;
+            }
+
+            setLoading(true);
+            alertContainer.innerHTML = '';
+
+            const accessToken = localStorage.getItem('accessToken');
+            const formData = {
+                type: 'update_user',
+                auth: accessToken,
+                given_name: newFirstName,
+                family_name: newLastName
+            };
+
+            try {
+                const response = await fetch(config.userMngtURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': accessToken
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'Success') {
+                    // Update success display
+                    const updatedName = `${newFirstName} ${newLastName}`;
+                    successNameDisplay.textContent = updatedName;
+                    
+                    // Show success modal
+                    successModal.show();
+                    
+                    // Update original data for future comparisons
+                    originalUserData.given_name = newFirstName;
+                    originalUserData.family_name = newLastName;
+                    
+                    // Update current displays
+                    currentName.textContent = updatedName;
+                    currentNameDisplay.textContent = updatedName;
+                } else {
+                    showAlert('danger', data.message || 'Failed to update profile');
+                }
+            } catch (error) {
+                console.error('Update error:', error);
+                showAlert('danger', 'Network error. Please check your connection and try again.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Reset form to original values
+        resetBtn.addEventListener('click', function() {
+            if (originalUserData) {
+                firstName.value = originalUserData.given_name || '';
+                lastName.value = originalUserData.family_name || '';
+                updateNewNameDisplay();
+                
+                // Clear any validation errors
+                document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+                document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+                
+                showAlert('info', 'Form reset to original values.');
+            }
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            logout();
+        });
+
+        function logout() {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('tokenType');
+            localStorage.removeItem('expiresIn');
+            localStorage.removeItem('loginTime');
+            localStorage.removeItem('rememberMe');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        }
+
+        // Retry loading
+        document.getElementById('retryBtn').addEventListener('click', function() {
+            loadProfile();
+        });
+
+        // Clear alerts and validation when user starts typing
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                if (alertContainer.innerHTML) {
+                    alertContainer.innerHTML = '';
+                }
+                // Clear field-specific errors
+                this.classList.remove('is-invalid');
+                const feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.remove();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

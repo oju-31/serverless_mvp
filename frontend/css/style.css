@@ -1,0 +1,32 @@
+/* you can add custom styles here */
+:root {
+    /* Violet Luxury Color Palette */
+    --bs-primary: #8B5CF6;      /* Rich violet */
+    --bs-secondary: #6366F1;    /* Indigo accent */
+    --bs-success: #10B981;      /* Emerald green */
+    --bs-info: #3B82F6;         /* Royal blue */
+    --bs-warning: #F59E0B;      /* Amber gold */
+    --bs-danger: #EF4444;       /* Ruby red */
+    --bs-light: #F8FAFC;        /* Soft white */
+    --bs-dark: #1E1B4B;         /* Deep violet navy */
+    
+    /* Luxury Typography */
+    --bs-body-font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --bs-body-font-size: 1.1rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.6;
+    --bs-body-color: #374151;
+    --bs-body-bg: #FEFEFE;
+    
+    /* Headings */
+    --bs-heading-color: #1F2937;
+    
+    /* Letter spacing for luxury feel */
+    --bs-btn-font-weight: 500;
+    --bs-navbar-brand-font-size: 1.5rem;
+}
+
+.btn-primary {
+    background-color: #8B5CF6 !important;
+    border-color: #8B5CF6 !important;
+}

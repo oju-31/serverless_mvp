@@ -1,12 +1,6 @@
-import boto3
-import re
-import json
-from auth_utils import logger, get_tokens
-from os import getenv
+from A2_user_utils import logger, get_tokens, validate_required_fields
 
-client = boto3.client('cognito-idp')
-CLIENT_ID = getenv("CLIENT_ID")
-required_fields = {"username", "password"}
+required_fields = {"email": str, "password": str}
 
 
 def log_in(user):
@@ -18,11 +12,8 @@ def log_in(user):
 
 def validate_login(data):
     # Validate required fields exist
-    for field in required_fields:
-       if field not in data or not isinstance(data[field], str):
-           raise ValueError(f"Missing required field '{field}', which must be a string")
-
+    validate_required_fields(data, required_fields)
     # email and pass
-    username = data["username"].lower()
+    username = data["email"].lower()
     password = data["password"]
     return  username, password

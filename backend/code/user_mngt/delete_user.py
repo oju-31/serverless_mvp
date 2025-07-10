@@ -1,25 +1,19 @@
 import boto3
-from core_utils import logger
-from os import getenv
+from A2_user_utils import logger, cognito_client, validate_required_fields, get_tokens, USER_TABLE, db, get_user_from_token
 
-client = boto3.client('cognito-idp')
-CLIENT_ID = getenv("CLIENT_ID")
-required_fields = {"username", "password"}
+required_fields = {"password": str, "auth": str}
 
 
 def delete_user_info(user):
     logger.info(user)
-    email = validate_delete_user(user)
-    client.forgot_password(
-            ClientId=CLIENT_ID,
-            Username=email
-        )
-    return "Code sent to your email"
-
-
-def validate_delete_user(data):
-    # Validate required fields exist
-    email = "username"
-    if email not in data or not isinstance(data[email], str):
-           raise ValueError(f"Missing required field '{email}', which must be a string")
-    return data[email]
+    validate_required_fields(user, required_fields)
+    email, user_id = get_user_from_token(user["auth"])
+    password = user["password"]
+    #check if correct password
+    user_check = get_tokens(email, password)
+    if not user_check:
+        raise ValueError("Invalid credentials")
+    table = db.Table(USER_TABLE)
+    table.delete_item(Key={'userID': user_id})
+    cognito_client.delete_user(AccessToken=user["auth"])
+    return "User deleted successfully"
