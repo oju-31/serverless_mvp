@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
     encrypt        = true
-    bucket         = "-aws-terraform-remote-state"              # prefix with your app name
-    dynamodb_table = "-aws-terraform-lock-centralized"          # prefix with your app name
+    bucket         = ""
+    dynamodb_table = "" 
     region         = "us-east-1"                                # change to your region
-    key            = "-monorepo-webapp-infra/terraform.tfstate" # prefix with your app name
+    key            = "monorepo-webapp-infra/terraform.tfstate" 
   }
   required_version = ">=1.0"
   required_providers {
