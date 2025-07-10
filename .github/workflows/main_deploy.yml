@@ -30,41 +30,41 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_MAIN }}
         aws-region: ${{ env.AWS_REGION }}
     
-    # - name: Set up Python 3.12
-    #   uses: actions/setup-python@v5
-    #   with:
-    #     python-version: 3.12
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
 
-    # - name: Install Python dependencies
-    #   run: |
-    #     python -m pip install --upgrade pip
-    #     pip install flake8 pytest boto3
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest boto3
 
     # - name: Lint Python files with flake8
     #   run: |
     #     flake8 backend
 
-    # - name: Unit Test Python Files With Pytest
-    #   run: |
-    #     pytest backend/unit_tests
+    - name: Unit Test Python Files With Pytest
+      run: |
+        pytest backend/unit_tests
 
     - name: 'Set up Terraform'
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: ${{ env.TF_VERSION }}
 
-    # - name: 'Install TFLint'
-    #   run: |
-    #     curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
-    #     unzip tflint.zip -d /usr/local/bin/
-    #     tflint --version
+    - name: 'Install TFLint'
+      run: |
+        curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
+        unzip tflint.zip -d /usr/local/bin/
+        tflint --version
 
-    # - name: 'Install tfsec'
-    #   run: |
-    #     curl -sLo tfsec https://github.com/aquasecurity/tfsec/releases/download/v${{ env.TFSEC_VERSION }}/tfsec-linux-amd64
-    #     chmod +x tfsec
-    #     mv tfsec /usr/local/bin/
-    #     tfsec --version
+    - name: 'Install tfsec'
+      run: |
+        curl -sLo tfsec https://github.com/aquasecurity/tfsec/releases/download/v${{ env.TFSEC_VERSION }}/tfsec-linux-amd64
+        chmod +x tfsec
+        mv tfsec /usr/local/bin/
+        tfsec --version
 
     - name: 'Terraform Init'
       run: terraform init
@@ -75,13 +75,13 @@ jobs:
     - name: 'Terraform Validate'
       run: terraform validate
 
-    # - name: 'TFLint'
-    #   run: |
-    #     tflint --init
-    #     tflint
+    - name: 'TFLint'
+      run: |
+        tflint --init
+        tflint
 
-    # - name: 'tfsec'
-    #   run: tfsec .
+    - name: 'tfsec'
+      run: tfsec .
 
     - name: 'Terraform Plan'
       if: github.event_name == 'push'
