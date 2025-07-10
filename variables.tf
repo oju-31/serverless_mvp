@@ -18,8 +18,8 @@ locals {
   COMMON_TAGS          = { 
     Environment = var.ENV 
     Application = "serverless-webapp"
-    Project     = "add description here" 
-    Owner       = "youremalhere@gmail.com"
+    Project     = var.APP_NAME
+    Owner       = "youremalhere@gmail.com" #add your email here
     CostCenter  = "SERVERLESS-WEBAPP-${var.ENV}-${var.APP_NAME}"
   } 
 }
