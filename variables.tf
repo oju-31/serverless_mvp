@@ -8,7 +8,7 @@ variable "AWS_REGION" {
 
 variable "APP_NAME" {
     type = string
-    default = "ahlorq"  # no spaces, no special characters
+    default = "my-app"  # no spaces, no special characters
 }
 
 locals {
@@ -20,6 +20,6 @@ locals {
     Application = "serverless-webapp"
     Project     = "add description here" 
     Owner       = "youremalhere@gmail.com"
-    CostCenter  = "SERVERLESS-WEBAPP-${var.ENV}-001"
+    CostCenter  = "SERVERLESS-WEBAPP-${var.ENV}-${var.APP_NAME}"
   } 
 }
